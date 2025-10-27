@@ -1,2 +1,2 @@
-# tyleransom.github.io
-Repository for Tyler Ransom's academic research website.
+# ShiCheHU.github.io
+Repository for Shicheng Hu's personal website.
