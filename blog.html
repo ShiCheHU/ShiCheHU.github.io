@@ -4,198 +4,59 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
-    <title>Shicheng Hu - Personal Website</title>
-    
-    <!-- 样式表按顺序加载 -->
+    <title>Shicheng Hu - Blog</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
-    <link rel="stylesheet" href="assets/css/academicons.min.css"/>
-    <link rel="stylesheet" href="assets/css/academicons.css"/>
-    
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Google Analytics 代码优化 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNJD50R0Z7"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-GNJD50R0Z7');
-    </script>
-
-    <!-- 旧版 Google Analytics (保留但建议移除，因为已使用新版) -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-      ga('create', 'UA-29643011-3', 'auto');
-      ga('send', 'pageview');
-    </script>
-    
-    <style>
-      button.accordion {
-        font: 14px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
-        cursor: pointer;
-        padding: 0px;
-        border: none;
-        text-align: left;
-        outline: none;
-        font-size: 100%;
-        transition: 0.3s;
-        background-color: #f8f8f8;
-        width: 100%; /* 添加宽度确保按钮可点击区域完整 */
-      }
-      
-      button.accordion.active, 
-      button.accordion:hover {
-        background-color: #f8f8f8;
-      }
-      
-      button.accordion:after {
-        content: " [+] ";
-        font-size: 90%;
-        color: #777;
-        float: left;
-        margin-left: 1px;
-      }
-
-      button.accordion.active:after {
-        content: " [\2212] "; /* \2212 是减号的Unicode */
-      }
-      
-      div.panel {
-        padding: 0 20px;
-        margin-top: 5px;
-        display: none;
-        background-color: white;
-        font-size: 100%;
-      }
-      
-      div.panel.show {
-        display: block !important;
-      }
-      
-      .social-row {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 10px; /* 添加间距使社交链接更美观 */
-      }
-      
-      /* 修复GitHub链接 */
-      .social-row a {
-        text-decoration: none;
-        color: #0366d6;
-      }
-      
-      .social-row a:hover {
-        text-decoration: underline;
-      }
-      
-      /* 修正拼写错误 */
-      .section-title {
-        font-weight: bold;
-      }
-    </style>
   </head>
-  
   <body>
-    <div class="wrapper">
+    <div class="markdown-shell">
       <header>
-        <h1>Shicheng Hu</h1>
-        <p>Senior Communication Standardization Engineer<br>
-          <a href="https://www.honor.com/">Honor Co., Ltd.</a>
-        </p>
-        <p>PhD in Communication and Information System<br>
-          <a href="http://sari.cas.cn/">Shanghai Advanced Research Institute, Chinese Academy of Science</a>
-        </p>
-        <p>Former Senior Network R&D Engineer<br>
-          <a href="https://it.10086.cn/">China Mobile (Hangzhou) Information Technology Co., Ltd.</a>
-        </p>
-        
-        <h3><a href="https://ShiCheHU.github.io/">Home</a></h3>
-        <h3><a href="https://ShiCheHU.github.io/research.html">Research</a></h3>
-        <h3><a href="https://ShiCheHU.github.io/research/CV.pdf">CV</a></h3>  
-        <h3><a href="https://ShiCheHU.github.io/blog.html">Blog</a></h3> 
-        <h3><a href="https://ShiCheHU.github.io/personal.html">Personal</a></h3>
-        
-        <b>Social</b><br>
-        <div class="social-row">
-          <!-- 修正邮箱地址 -->
-          <a href="mailto:ransom@ou.edu" target="_blank"><i class="fas fa-fw fa-envelope"></i> Email</a>
-          
-          <!-- ORCID -->
-          <a href="https://orcid.org/my-orcid?orcid=0009-0003-9194-7979" target="_blank"><i class="ai ai-fw ai-orcid"></i> ORCID</a>
-          
-          <!-- 修正GitHub链接 - 建议使用您的实际GitHub用户名 -->
-          <a href="https://github.com/ShiCheHU" target="_blank"><i class="fab fa-fw fa-github"></i> GitHub</a>
-          
-          <!-- LinkedIn -->
-          <a href="https://linkedin.com/in/shicheng-hu" target="_blank"><i class="fab fa-fw fa-linkedin"></i> LinkedIn</a>
+        <h1 data-lang="en">Blog</h1>
+        <h1 data-lang="zh">博客</h1>
+        <div class="lang-toggle">
+          <button type="button" data-lang-switch="en">English</button>
+          <button type="button" data-lang-switch="zh">中文</button>
         </div>
-        <br>
-
-        <p><b>Contact:</b><br>Shanghai<br>China<br>Zhangjiang 201210</p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+        <p data-lang="en"><a href="index.html">← Back to home</a></p>
+        <p data-lang="zh"><a href="index.html">← 返回主页</a></p>
       </header>
-      
-      <section>
-        <h2><a id="protocol-study" class="anchor" href="#protocol-study" aria-hidden="true"><span class="octicon octicon-link"></span></a>Protocol Study</h2>
-        
-        <h3>Sparklink</h3>
-        <ul>
-          <li>
-            <a href="https://shichehu.github.io/blog/StarlinkBasic.pdf">Introductory slides</a> that introduce 
-            <a href="https://zh.wikipedia.org/wiki/星闪">Sparklink (NearLink)</a>.
-          </li>
+
+      <div class="section-card">
+        <h2 data-lang="en">Markdown posts</h2>
+        <h2 data-lang="zh">Markdown 文章</h2>
+        <div class="card-grid">
+          <article class="post-card">
+            <h3 data-lang="en">Understanding AI CSI Compression in 3GPP</h3>
+            <h3 data-lang="zh">理解 3GPP 中的 AI CSI 压缩</h3>
+            <p data-lang="en">Open a Markdown article rendered to HTML in the browser.</p>
+            <p data-lang="zh">打开以 Markdown 编写、在浏览器中渲染成 HTML 的文章。</p>
+            <div class="inline-links">
+              <a data-lang-link-en="blog-post.html?lang=en&post=ai-csi-compression" data-lang-link-zh="blog-post.html?lang=zh&post=ai-csi-compression" href="blog-post.html?lang=en&post=ai-csi-compression">Read</a>
+            </div>
+          </article>
+          <article class="post-card">
+            <h3 data-lang="en">Wi-Fi 8 Notes</h3>
+            <h3 data-lang="zh">Wi-Fi 8 学习笔记</h3>
+            <p data-lang="en">A second example post rendered from Markdown.</p>
+            <p data-lang="zh">第二篇 Markdown 渲染示例文章。</p>
+            <div class="inline-links">
+              <a data-lang-link-en="blog-post.html?lang=en&post=wifi8-notes" data-lang-link-zh="blog-post.html?lang=zh&post=wifi8-notes" href="blog-post.html?lang=en&post=wifi8-notes">Read</a>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h2 data-lang="en">Existing PDF resources</h2>
+        <h2 data-lang="zh">现有 PDF 资料</h2>
+        <ul class="item-list">
+          <li><a href="blog/StarlinkBasic.pdf">SparkLink / NearLink introductory slides (PDF)</a></li>
+          <li><a href="blog/WiFi8Tutorial.pdf">Wi-Fi 8 introductory slides (PDF)</a></li>
+          <li><a href="blog/AI_CSI_compression.pdf">3GPP RAN1 AI CSI Compression Rel-18/19 Progress (PDF)</a></li>
         </ul>
-        
-        <h3>Wi-Fi 8</h3>
-        <ul>
-          <li>
-            <a href="https://shichehu.github.io/blog/WiFi8Tutorial.pdf">Introductory slides</a> that introduce 
-            <a href="https://en.wikipedia.org/wiki/IEEE_802.11bn">Wi-Fi 8 (IEEE 802.11bn)</a>.
-          </li>
-        </ul>
-        
-        <hr>
-      </section>
-      
-      <section>
-        <h2><a id="meeting-progress" class="anchor" href="#meeting-progress" aria-hidden="true"><span class="octicon octicon-link"></span></a>Meeting Progress</h2>
-        <ul>
-          <li>
-            <a href="https://shichehu.github.io/blog/AI_CSI_compression.pdf">3GPP RAN1 AI CSI Compression Rel-18/19 Progress</a>: 
-            In Rel-18, 3GPP RAN1 led a study of AI/ML for air interface including AI CSI compression. In Rel-19, AI CSI compression 
-            studied for one more release. This presentation summarizes the progress of AI CSI compression in these two releases.
-          </li>
-        </ul>
-      </section>
+      </div>
     </div>
-    
-    <script src="javascripts/scale.fix.js"></script>
-    
-    <!-- 如果需要折叠面板功能，添加以下JavaScript -->
-    <script>
-      // 为accordion按钮添加交互功能（如果需要）
-      document.addEventListener('DOMContentLoaded', function() {
-        var acc = document.getElementsByClassName("accordion");
-        for (var i = 0; i < acc.length; i++) {
-          acc[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var panel = this.nextElementSibling;
-            if (panel.style.display === "block") {
-              panel.style.display = "none";
-            } else {
-              panel.style.display = "block";
-            }
-          });
-        }
-      });
-    </script>
+    <script src="javascripts/site.js"></script>
+    <script>siteLang.initLanguageToggle('en');</script>
   </body>
 </html>

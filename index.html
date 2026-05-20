@@ -1,127 +1,143 @@
 <!doctype html>
 <html lang="en">
   <head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
     <title>Shicheng Hu</title>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/github-light.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-29643011-3', 'auto');
-      ga('send', 'pageview');
-    </script>
-
-    <!-- New GA4 tracking code, see https://support.google.com/analytics/answer/10271001#analyticsjs-enable-basic --> 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNJD50R0Z7"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-GNJD50R0Z7');
-    </script>
-
-    <!-- For all browsers -->
     <link rel="stylesheet" href="assets/css/academicons.min.css"/>
     <link rel="stylesheet" href="assets/css/academicons.css"/>
-
-    <style>
-      button.accordion {
-      font:14px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
-      cursor: pointer;
-      padding: 0px;
-      border: none;
-      text-align: left;
-      outline: none;
-      font-size: 100%;
-      transition: 0.3s;
-      background-color: #f8f8f8;
-      }
-      button.accordion.active, button.accordion:hover {
-      background-color: #f8f8f8;
-      }
-      button.accordion:after {
-      content: " [+] ";
-      font-size: 90%;
-      color:#777;
-      float: left;
-      margin-left: 1px;
-      }
-
-      button.accordion.active:after {
-      content: " [\2212] ";
-      }
-      div.panel {
-      padding: 0 20px;
-      margin-top: 5px;
-      display: none;
-      background-color: white;
-      font-size: 100%;
-      }
-      div.panel.show {
-      display: block !important;
-      }
-      .social-row {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-      }
-    </style>
   </head>
   <body>
-    <div class="wrapper">
-      <header>
+    <div class="wrapper homepage">
+      <header class="home-header">
         <h1>Shicheng Hu</h1>
-        <p>Senior Communication Standardization Engineer<br><a href="https://www.honor.com/">Honor Co., Ltd.</a></p>
-        <p>PhD in Communication and Information System<br><a href="http://sari.cas.cn/">Shanghai Advanced Research Institute, Chinese Academy of Science</a></p>
-        <p>Former Senior Network R&D Engineer<br><a href="https://it.10086.cn/">China Mobile (Hangzhou) Information Technology Co., Ltd., Hangzhou,
-China</a></p>
-    <h3><a href="https://ShiCheHU.github.io/">Home</a></h3>
-        <h3><a href="https://ShiCheHU.github.io/research.html">Research</a></h3>
-    <h3><a href="https://ShiCheHU.github.io/research/CV.pdf">CV</a></h3>  
-        <h3><a href="https://ShiCheHU.github.io/blog.html">Blog</a></h3> 
-        <h3><a href="https://ShiCheHU.github.io/personal.html">Personal</a></h3>
-        <b>Social</b><br>
-        <div class="social-row">
-          <a href="mailto:hushch2018@163.com" class="author-social" target="_blank"><i class="fas fa-fw fa-envelope"></i> Email</a><br>
-          <!-- Scholar-->
-          <!--<a href="https://scholar.google.com/citations?user=eohlTTcAAAAJ&hl=en" target="_blank"><i class="ai ai-fw ai-google-scholar"></i> Scholar</a><br> -->
-          <a href="https://orcid.org/my-orcid?orcid=0009-0003-9194-7979"><i class="ai ai-fw ai-orcid"></i> ORCID</a><br>
-          <!--<a href="http://ideas.repec.org/f/pra541.html"><i class="ai ai-fw ai-ideas-repec"></i> RePEc</a><br>-->
-          <a href="http://github.com/"><i class="fab fa-fw fa-github"></i> GitHub</a><br>
-          <!--<a href="https://tyleransom.substack.com" class="author-social" target="_blank"><i class="fas fa-fw fa-rss"></i> Substack</a><br>
-          <a href="http://x.com/tyleransom" class="author-social" target="_blank"><i class="fab fa-fw fa-x-twitter"></i> X</a><br>-->
-          <a href="http://linkedin.com/in/shicheng-hu" class="author-social" target="_blank"><i class="fab fa-fw fa-linkedin"></i> LinkedIn</a><br>
-          <!--<a href="https://www.youtube.com/@structuraleconguy" class="author-social" target="_blank"><i class="fab fa-fw fa-youtube"></i> YouTube</a><br>-->
-          <br>
+        <div class="lang-toggle" aria-label="Language switcher">
+          <button type="button" data-lang-switch="en">English</button>
+          <button type="button" data-lang-switch="zh">中文</button>
         </div>
-        <br>
-
-    <p><b>Contact:</b><br>Shanghai<br>China<br>Zhangjiang 201210</p>
-    <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+        <img class="profile-image" src="IMG_Me.jpg" alt="Shicheng Hu">
+        <p data-lang="en">Senior Communication Standardization Engineer<br><a href="https://www.honor.com/">Honor Co., Ltd.</a></p>
+        <p data-lang="zh">高级通信标准工程师<br><a href="https://www.honor.com/">荣耀终端有限公司</a></p>
+        <p data-lang="en">Ph.D. in Communication and Information Systems<br><a href="http://sari.cas.cn/">Shanghai Advanced Research Institute, Chinese Academy of Sciences</a></p>
+        <p data-lang="zh">通信与信息系统博士<br><a href="http://sari.cas.cn/">中国科学院上海高等研究院</a></p>
+        <div class="quick-nav">
+          <a href="#about" data-lang="en">About</a>
+          <a href="#about" data-lang="zh">简介</a>
+          <a href="#research" data-lang="en">Research</a>
+          <a href="#research" data-lang="zh">研究</a>
+          <a href="#blog" data-lang="en">Blog</a>
+          <a href="#blog" data-lang="zh">博客</a>
+          <a href="#contact" data-lang="en">Contact</a>
+          <a href="#contact" data-lang="zh">联系</a>
+        </div>
+        <div class="social-row">
+          <a href="mailto:hushch2018@163.com" target="_blank"><i class="fas fa-fw fa-envelope"></i> Email</a>
+          <a href="https://orcid.org/0009-0003-9194-7979" target="_blank"><i class="ai ai-fw ai-orcid"></i> ORCID</a>
+          <a href="https://github.com/ShiCheHU" target="_blank"><i class="fab fa-fw fa-github"></i> GitHub</a>
+          <a href="https://linkedin.com/in/shicheng-hu" target="_blank"><i class="fab fa-fw fa-linkedin"></i> LinkedIn</a>
+        </div>
+        <p class="footer-note">CV: <a href="research/CV.pdf">PDF</a></p>
       </header>
-      <section>
-      <img src="IMG_Me.jpg" height="250" width="250" alt="SCHU"></h3>
-  <p>I am a Communication Standardization Engineer at Honor Co., Ltd., specializing in AI/ML for the air interface and Integrated Sensing and Communication (ISAC) within 3GPP RAN1. My contributions include authoring 20+ patents and 5+ contribution papers (Tdocs) on these topics, directly supporting the RAN1 working items for 5G-Advanced and study items for 6G.</p>
 
-  <p>I earned my Ph.D. in Communication Engineering from the Shanghai Advanced Research Institute, Chinese Academy of Sciences, in 2023. My doctoral research focused on mitigating non-ideal hardware impairments in communication systems, specifically developing optimization algorithms to counteract phase noise and high Peak-to-Average Power Ratio (PAPR) in OFDM systems. This work culminated in 10 publications in top-tier international journals and conferences by 2023.</p>
+      <section class="home-section">
+        <div id="about" class="hero-card">
+          <h2 class="section-title" data-lang="en">About</h2>
+          <h2 class="section-title" data-lang="zh">简介</h2>
+          <p data-lang="en">I work on wireless communication standardization, with a focus on AI/ML for the air interface, CSI feedback and compression, beam management, and integrated sensing and communication. My work spans 3GPP RAN1 standardization, wireless system design, and algorithm development for OFDM and MIMO systems.</p>
+          <p data-lang="zh">我目前从事无线通信标准化工作，重点方向包括空口 AI/ML、CSI 反馈与压缩、波束管理以及通感一体化。我长期参与 3GPP RAN1 标准化工作，同时关注 OFDM 与 MIMO 系统中的无线算法与系统设计。</p>
+          <p data-lang="en">I received my Ph.D. from the Shanghai Advanced Research Institute, Chinese Academy of Sciences. My doctoral research focused on non-ideal hardware impairments in communication systems, especially phase noise mitigation and PAPR reduction in OFDM. I have industry experience from both a major mobile operator and a leading device manufacturer.</p>
+          <p data-lang="zh">我毕业于中国科学院上海高等研究院，博士期间主要研究通信系统中的非理想硬件影响，尤其是 OFDM 系统中的相位噪声抑制和峰均比降低问题。我也曾在移动运营商和终端厂商从事研发与标准相关工作。</p>
+          <div class="inline-links">
+            <a href="research.html" data-lang="en">Open full research page</a>
+            <a href="research.html" data-lang="zh">查看完整研究页面</a>
+            <a href="blog.html" data-lang="en">Open blog index</a>
+            <a href="blog.html" data-lang="zh">查看博客目录</a>
+          </div>
+        </div>
 
-  <p>I possess a robust academic background in telecommunications, underscored by a Bachelor's and a Doctoral degree. I have a profound passion for standards work and am highly self-motivated in continuously learning 3GPP protocols. My professional tenure at a major mobile operator and a leading device manufacturer has provided me with comprehensive insights into both technical standards formulation and industry consensus-building. I have extensive conference participation experience, with a proven track record in major standards organizations, including GSMA TSG working group meetings, IEEE Wi-Fi standards development, 3GPP cellular network standards development, and WLAN Chinese industrial standards meetings.</p>
+        <div id="research" class="section-card">
+          <h2 class="section-title" data-lang="en">Selected Research</h2>
+          <h2 class="section-title" data-lang="zh">研究摘要</h2>
+          <ul class="item-list">
+            <li>
+              <span class="item-title" data-lang="en">AI/ML for air interface and CSI compression</span>
+              <span class="item-title" data-lang="zh">空口 AI/ML 与 CSI 压缩</span>
+              <div class="item-meta" data-lang="en">3GPP RAN1, 5G-Advanced to 6G</div>
+              <div class="item-meta" data-lang="zh">3GPP RAN1，面向 5G-Advanced 与 6G</div>
+              <p data-lang="en">Research and standardization contributions on AI-native CSI feedback/compression, beam management, and ML-assisted physical-layer design.</p>
+              <p data-lang="zh">围绕 AI 原生 CSI 反馈/压缩、波束管理以及物理层智能化设计开展研究与标准化贡献。</p>
+            </li>
+            <li>
+              <span class="item-title" data-lang="en">OFDM impairments and optimization</span>
+              <span class="item-title" data-lang="zh">OFDM 非理想影响与优化</span>
+              <div class="item-meta" data-lang="en">Phase noise mitigation, PAPR reduction, blind detection</div>
+              <div class="item-meta" data-lang="zh">相位噪声抑制、PAPR 降低、盲检测</div>
+              <p data-lang="en">My academic work includes optimization-based mitigation of phase noise and low-complexity receiver design under hardware impairments.</p>
+              <p data-lang="zh">博士期间的研究主要集中在基于优化的相位噪声补偿以及硬件非理想条件下的低复杂度接收机设计。</p>
+            </li>
+            <li>
+              <span class="item-title" data-lang="en">Wi-Fi and protocol study</span>
+              <span class="item-title" data-lang="zh">Wi-Fi 与协议研究</span>
+              <div class="item-meta" data-lang="en">Wi-Fi 8, SparkLink, system-level understanding</div>
+              <div class="item-meta" data-lang="zh">Wi-Fi 8、星闪、协议与系统分析</div>
+              <p data-lang="en">I also write technical notes and learning materials on wireless standards and protocol evolution.</p>
+              <p data-lang="zh">我也会持续整理无线标准和协议演进相关的技术笔记与学习材料。</p>
+            </li>
+          </ul>
+        </div>
 
-  <p>I have strong technical expertise to my research, with proficiency in Matlab, Python, LaTex, Git, and C.</p>
+        <div id="blog" class="section-card">
+          <h2 class="section-title" data-lang="en">Blog</h2>
+          <h2 class="section-title" data-lang="zh">博客</h2>
+          <div class="card-grid">
+            <article class="post-card">
+              <span class="badge" data-lang="en">Markdown post</span>
+              <span class="badge" data-lang="zh">Markdown 文章</span>
+              <h3 data-lang="en">Understanding AI CSI Compression in 3GPP</h3>
+              <h3 data-lang="zh">理解 3GPP 中的 AI CSI 压缩</h3>
+              <p data-lang="en">A short technical note on the motivation, modeling, and standardization background of AI-assisted CSI feedback and compression.</p>
+              <p data-lang="zh">一篇简短技术笔记，介绍 AI 辅助 CSI 反馈与压缩的动机、建模和标准化背景。</p>
+              <div class="inline-links">
+                <a data-lang-link-en="blog-post.html?lang=en&post=ai-csi-compression" data-lang-link-zh="blog-post.html?lang=zh&post=ai-csi-compression" href="blog-post.html?lang=en&post=ai-csi-compression">Read</a>
+              </div>
+            </article>
+            <article class="post-card">
+              <span class="badge" data-lang="en">Markdown post</span>
+              <span class="badge" data-lang="zh">Markdown 文章</span>
+              <h3 data-lang="en">Wi-Fi 8 Notes</h3>
+              <h3 data-lang="zh">Wi-Fi 8 学习笔记</h3>
+              <p data-lang="en">A concise note on Wi-Fi 8 goals, key features, and why protocol evolution matters for real deployments.</p>
+              <p data-lang="zh">关于 Wi-Fi 8 目标、关键特性及其面向实际部署意义的一份简要笔记。</p>
+              <div class="inline-links">
+                <a data-lang-link-en="blog-post.html?lang=en&post=wifi8-notes" data-lang-link-zh="blog-post.html?lang=zh&post=wifi8-notes" href="blog-post.html?lang=en&post=wifi8-notes">Read</a>
+              </div>
+            </article>
+          </div>
+          <div class="inline-links">
+            <a href="blog.html" data-lang="en">Open full blog index</a>
+            <a href="blog.html" data-lang="zh">查看完整博客目录</a>
+          </div>
+        </div>
+
+        <div id="contact" class="section-card">
+          <h2 class="section-title" data-lang="en">Contact</h2>
+          <h2 class="section-title" data-lang="zh">联系</h2>
+          <p data-lang="en">Shanghai, China. I am happy to connect on research, standardization, and technical collaboration related to wireless communications.</p>
+          <p data-lang="zh">中国上海。欢迎就无线通信研究、标准化工作和技术合作与我联系。</p>
+          <div class="inline-links">
+            <a href="mailto:hushch2018@163.com">Email</a>
+            <a href="research/CV.pdf" data-lang="en">CV</a>
+            <a href="research/CV.pdf" data-lang="zh">简历</a>
+          </div>
+        </div>
       </section>
     </div>
     <script src="javascripts/scale.fix.js"></script>
+    <script src="javascripts/site.js"></script>
+    <script>siteLang.initLanguageToggle('en');</script>
   </body>
 </html>
