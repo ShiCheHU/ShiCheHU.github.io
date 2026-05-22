@@ -1,102 +1,92 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
-    <title>Shicheng Hu - Blog</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="stylesheets/styles.css">
-  </head>
-  <body>
-    <div class="markdown-shell">
-      <header>
-        <h1 data-lang="en">Blog</h1>
-        <h1 data-lang="zh">博客</h1>
-        <div class="lang-toggle">
-          <button type="button" data-lang-switch="en">English</button>
-          <button type="button" data-lang-switch="zh">中文</button>
-        </div>
-        <p data-lang="en"><a href="index.html">← Back to home</a></p>
-        <p data-lang="zh"><a href="index.html">← 返回主页</a></p>
-      </header>
-
-      <div class="section-card">
-        <h2 data-lang="en">Markdown posts</h2>
-        <h2 data-lang="zh">Markdown 文章</h2>
-        <div class="card-grid">
-          <article class="post-card">
-            <h3 data-lang="en">Understanding AI CSI Compression in 3GPP</h3>
-            <h3 data-lang="zh">理解 3GPP 中的 AI CSI 压缩</h3>
-            <p data-lang="en">Open a Markdown article rendered to HTML in the browser.</p>
-            <p data-lang="zh">打开以 Markdown 编写、在浏览器中渲染成 HTML 的文章。</p>
-            <div class="inline-links">
-              <a data-lang-link-en="blog-post.html?lang=en&post=ai-csi-compression" data-lang-link-zh="blog-post.html?lang=zh&post=ai-csi-compression" href="blog-post.html?lang=en&post=ai-csi-compression">Read</a>
-            </div>
-          </article>
-          <article class="post-card">
-            <h3 data-lang="en">Wi-Fi 8 Notes</h3>
-            <h3 data-lang="zh">Wi-Fi 8 学习笔记</h3>
-            <p data-lang="en">A second example post rendered from Markdown.</p>
-            <p data-lang="zh">第二篇 Markdown 渲染示例文章。</p>
-            <div class="inline-links">
-              <a data-lang-link-en="blog-post.html?lang=en&post=wifi8-notes" data-lang-link-zh="blog-post.html?lang=zh&post=wifi8-notes" href="blog-post.html?lang=en&post=wifi8-notes">Read</a>
-            </div>
-          </article>
-        </div>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shicheng Hu — Blog</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="stylesheets/styles.css">
+</head>
+<body>
+  <div class="container">
+    <header class="page-header">
+      <h1 data-lang="en">Blog</h1>
+      <h1 data-lang="zh">博客</h1>
+      <div class="lang-toggle">
+        <button type="button" data-lang-switch="en">English</button>
+        <button type="button" data-lang-switch="zh">中文</button>
       </div>
+      <p><a href="index.html" data-lang="en">← Back to home</a><a href="index.html" data-lang="zh">← 返回主页</a></p>
+    </header>
 
-      <!-- ===== Precoding / 预编码 ===== -->
-      <div class="section-card" id="precoding">
-        <h2 data-lang="en">Precoding</h2>
-        <h2 data-lang="zh">预编码</h2>
-        <div class="card-grid">
-          <article class="post-card">
-            <h3>Block Diagonalization Precoding</h3>
-            <p data-lang="en">A comprehensive derivation of Block Diagonalization (BD) precoding for multiuser MIMO downlink, covering system model, zero-space construction, equivalent channel SVD, power allocation, and regularized BD.</p>
-            <p data-lang="zh">多用户 MIMO 下行 Block Diagonalization (BD) 预编码的详细推导，涵盖系统模型、零空间构造、等效信道 SVD、功率分配以及正则化 BD。</p>
-            <div class="inline-links">
-              <a href="blog-tech.html?file=blog/precoding/Block%20Diagonalization%20Precoding.md">Read</a>
-            </div>
-          </article>
-        </div>
+    <!-- Markdown Posts -->
+    <section class="card">
+      <h2 data-lang="en">Markdown Posts</h2>
+      <h2 data-lang="zh">Markdown 文章</h2>
+      <div class="card-grid">
+        <article class="card">
+          <h3 data-lang="en">Understanding AI CSI Compression in 3GPP</h3>
+          <h3 data-lang="zh">理解 3GPP 中的 AI CSI 压缩</h3>
+          <p data-lang="en">A short technical note on the motivation, modeling, and standardization background of AI-assisted CSI feedback and compression.</p>
+          <p data-lang="zh">一篇简短技术笔记，介绍 AI 辅助 CSI 反馈与压缩的动机、建模和标准化背景。</p>
+          <a data-lang-link-en="blog-post.html?lang=en&post=ai-csi-compression" data-lang-link-zh="blog-post.html?lang=zh&post=ai-csi-compression" href="blog-post.html?lang=en&post=ai-csi-compression">Read →</a>
+        </article>
+        <article class="card">
+          <h3 data-lang="en">Wi-Fi 8 Notes</h3>
+          <h3 data-lang="zh">Wi-Fi 8 学习笔记</h3>
+          <p data-lang="en">A concise note on Wi-Fi 8 goals, key features, and why protocol evolution matters for real deployments.</p>
+          <p data-lang="zh">关于 Wi-Fi 8 目标、关键特性及其面向实际部署意义的一份简要笔记。</p>
+          <a data-lang-link-en="blog-post.html?lang=en&post=wifi8-notes" data-lang-link-zh="blog-post.html?lang=zh&post=wifi8-notes" href="blog-post.html?lang=en&post=wifi8-notes">Read →</a>
+        </article>
       </div>
+    </section>
 
-      <!-- ===== Channel Estimation / 信道估计 ===== -->
-      <div class="section-card" id="channel-estimation">
-        <h2 data-lang="en">Channel Estimation</h2>
-        <h2 data-lang="zh">信道估计</h2>
-        <div class="card-grid">
-          <article class="post-card">
-            <h3>Doubly Selective Fading Channel Model</h3>
-            <p data-lang="en">A unified mathematical model of doubly selective fading channels, including continuous/discrete-domain representations, Jakes/Clarke AR/BEM modeling, and Rayleigh/Rician configurations.</p>
-            <p data-lang="zh">双选择性衰落信道的统一数学模型，涵盖连续/离散域表示、Jakes/Clarke/AR/BEM 建模以及 Rayleigh/Rician 配置。</p>
-            <div class="inline-links">
-              <a href="blog-tech.html?file=blog/channel_estimation/Channel_model_Double_Selective_Fading_revised.md">Read</a>
-            </div>
-          </article>
-          <article class="post-card">
-            <h3>SISO OFDM Channel Estimation</h3>
-            <p data-lang="en">A systematic introduction to SISO OFDM channel estimation and interpolation, including LS, MMSE, LMMSE estimators and linear, second-order, Wiener, DFT interpolation methods.</p>
-            <p data-lang="zh">SISO OFDM 信道估计与插值的系统介绍，包括 LS、MMSE、LMMSE 估计器以及线性、二阶、Wiener、DFT 插值方法。</p>
-            <div class="inline-links">
-              <a href="blog-tech.html?file=blog/channel_estimation/SISO%20OFDM%20channel%20estimation.md">Read</a>
-            </div>
-          </article>
-        </div>
+    <!-- Precoding -->
+    <section class="card" id="precoding">
+      <h2 data-lang="en">Precoding</h2>
+      <h2 data-lang="zh">预编码</h2>
+      <div class="card-grid">
+        <article class="card">
+          <h3>Block Diagonalization Precoding</h3>
+          <p data-lang="en">A comprehensive derivation of BD precoding for multiuser MIMO downlink: system model, zero-space construction, equivalent channel SVD, power allocation, and regularized BD.</p>
+          <p data-lang="zh">多用户 MIMO 下行 BD 预编码的详细推导，涵盖系统模型、零空间构造、等效信道 SVD、功率分配以及正则化 BD。</p>
+          <a href="blog-post.html?file=blog/precoding/Block%20Diagonalization%20Precoding.md">Read →</a>
+        </article>
       </div>
+    </section>
 
-      <div class="section-card">
-        <h2 data-lang="en">Existing PDF resources</h2>
-        <h2 data-lang="zh">现有 PDF 资料</h2>
-        <ul class="item-list">
-          <li><a href="blog/StarlinkBasic.pdf">SparkLink / NearLink introductory slides (PDF)</a></li>
-          <li><a href="blog/WiFi8Tutorial.pdf">Wi-Fi 8 introductory slides (PDF)</a></li>
-          <li><a href="blog/AI_CSI_compression.pdf">3GPP RAN1 AI CSI Compression Rel-18/19 Progress (PDF)</a></li>
-        </ul>
+    <!-- Channel Estimation -->
+    <section class="card" id="channel-estimation">
+      <h2 data-lang="en">Channel Estimation</h2>
+      <h2 data-lang="zh">信道估计</h2>
+      <div class="card-grid">
+        <article class="card">
+          <h3>Doubly Selective Fading Channel Model</h3>
+          <p data-lang="en">A unified mathematical model of doubly selective fading channels: continuous/discrete representations, Jakes/Clarke/AR/BEM modeling, Rayleigh/Rician configurations.</p>
+          <p data-lang="zh">双选择性衰落信道的统一数学模型：连续/离散域表示、Jakes/Clarke/AR/BEM 建模、Rayleigh/Rician 配置。</p>
+          <a href="blog-post.html?file=blog/channel_estimation/Channel_model_Double_Selective_Fading_revised.md">Read →</a>
+        </article>
+        <article class="card">
+          <h3>SISO OFDM Channel Estimation</h3>
+          <p data-lang="en">A systematic introduction to SISO OFDM channel estimation and interpolation: LS, MMSE, LMMSE estimators and linear, second-order, Wiener, DFT interpolation.</p>
+          <p data-lang="zh">SISO OFDM 信道估计与插值的系统介绍：LS、MMSE、LMMSE 估计器以及线性、二阶、Wiener、DFT 插值方法。</p>
+          <a href="blog-post.html?file=blog/channel_estimation/SISO%20OFDM%20channel%20estimation.md">Read →</a>
+        </article>
       </div>
-    </div>
-    <script src="javascripts/site.js"></script>
-    <script>siteLang.initLanguageToggle('en');</script>
-  </body>
+    </section>
+
+    <!-- PDF Resources -->
+    <section class="card">
+      <h2 data-lang="en">PDF Resources</h2>
+      <h2 data-lang="zh">PDF 资料</h2>
+      <ul>
+        <li><a href="blog/StarlinkBasic.pdf">SparkLink / NearLink introductory slides (PDF)</a></li>
+        <li><a href="blog/WiFi8Tutorial.pdf">Wi-Fi 8 introductory slides (PDF)</a></li>
+        <li><a href="blog/AI_CSI_compression.pdf">3GPP RAN1 AI CSI Compression Rel-18/19 Progress (PDF)</a></li>
+      </ul>
+    </section>
+  </div>
+  <script src="javascripts/site.js"></script>
+  <script>siteLang.initLanguageToggle('en');</script>
+</body>
 </html>
