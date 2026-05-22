@@ -1,173 +1,163 @@
 <!doctype html>
 <html lang="en">
   <head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Shicheng Hu</title>
-
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-29643011-3', 'auto');
-      ga('send', 'pageview');
-    </script>
-
-    <!-- New GA4 tracking code, see https://support.google.com/analytics/answer/10271001#analyticsjs-enable-basic --> 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNJD50R0Z7"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-GNJD50R0Z7');
-    </script>
-
-    <!-- For all browsers -->
+    <title>Shicheng Hu - Personal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="assets/css/academicons.min.css"/>
     <link rel="stylesheet" href="assets/css/academicons.css"/>
-    
+
     <style>
       button.accordion {
-      font:14px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
-      cursor: pointer;
-      padding: 0px;
-      border: none;
-      text-align: left;
-      outline: none;
-      font-size: 100%;
-      transition: 0.3s;
-      background-color: #f8f8f8;
+        font: 14px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        cursor: pointer;
+        padding: 0px;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 100%;
+        transition: 0.3s;
+        background-color: #f8f8f8;
       }
       button.accordion.active, button.accordion:hover {
-      background-color: #f8f8f8;
+        background-color: #f8f8f8;
       }
       button.accordion:after {
-      content: " [+] ";
-      font-size: 90%;
-      color:#777;
-      float: left;
-      margin-left: 1px;
+        content: " [+] ";
+        font-size: 90%;
+        color: #777;
+        float: left;
+        margin-left: 1px;
       }
-
       button.accordion.active:after {
-      content: " [\2212] ";
+        content: " [\2212] ";
       }
       div.panel {
-      padding: 0 20px;
-      margin-top: 5px;
-      display: none;
-      background-color: white;
-      font-size: 100%;
+        padding: 0 20px;
+        margin-top: 5px;
+        display: none;
+        background-color: white;
+        font-size: 100%;
       }
       div.panel.show {
-      display: block !important;
-      }
-      .social-row {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
+        display: block !important;
       }
     </style>
   </head>
   <body>
-    <div class="wrapper">
+    <div class="markdown-shell">
       <header>
-        <h1>Shicheng Hu</h1>
-        <p>Senior Communication Standardization Engineer<br><a href="https://www.honor.com/">Honor Co., Ltd.</a></p>
-        <p>PhD in Communication and Information System<br><a href="http://sari.cas.cn/">Shanghai Advanced Research Institute, Chinese Academy of Science</a></p>
-        <p>Former Senior Network R&D Engineer<br><a href="https://it.10086.cn/">China Mobile (Hangzhou) Information Technology Co., Ltd., Hangzhou,
-China</a></p>
-    <h3><a href="https://ShiCheHU.github.io/">Home</a></h3>
-        <h3><a href="https://ShiCheHU.github.io/research.html">Research</a></h3>
-    <h3><a href="https://ShiCheHU.github.io/research/CV.pdf">CV</a></h3>  
-        <h3><a href="https://ShiCheHU.github.io/blog.html">Blog</a></h3> 
-        <h3><a href="https://ShiCheHU.github.io/personal.html">Personal</a></h3>
-        <b>Social</b><br>
-        <div class="social-row">
-          <a href="mailto:ransom@ou.edu" class="author-social" target="_blank"><i class="fas fa-fw fa-envelope"></i> Email</a><br>
-          <!-- Scholar-->
-          <!--<a href="https://scholar.google.com/citations?user=eohlTTcAAAAJ&hl=en" target="_blank"><i class="ai ai-fw ai-google-scholar"></i> Scholar</a><br> -->
-          <a href="https://orcid.org/my-orcid?orcid=0009-0003-9194-7979"><i class="ai ai-fw ai-orcid"></i> ORCID</a><br>
-          <!--<a href="http://ideas.repec.org/f/pra541.html"><i class="ai ai-fw ai-ideas-repec"></i> RePEc</a><br>-->
-          <a href="http://github.com/"><i class="fab fa-fw fa-github"></i> GitHub</a><br>
-          <!--<a href="https://tyleransom.substack.com" class="author-social" target="_blank"><i class="fas fa-fw fa-rss"></i> Substack</a><br>
-          <a href="http://x.com/tyleransom" class="author-social" target="_blank"><i class="fab fa-fw fa-x-twitter"></i> X</a><br>-->
-          <a href="http://linkedin.com/in/shicheng-hu" class="author-social" target="_blank"><i class="fab fa-fw fa-linkedin"></i> LinkedIn</a><br>
-          <!--<a href="https://www.youtube.com/@structuraleconguy" class="author-social" target="_blank"><i class="fab fa-fw fa-youtube"></i> YouTube</a><br>-->
-          <br>
+        <h1 data-lang="en">Personal</h1>
+        <h1 data-lang="zh">个人</h1>
+        <div class="lang-toggle">
+          <button type="button" data-lang-switch="en">English</button>
+          <button type="button" data-lang-switch="zh">中文</button>
         </div>
-        <br>
-
-    <p><b>Contact:</b><br>Shanghai<br>China<br>Zhangjiang 201210</p>
-    <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+        <p data-lang="en"><a href="index.html">← Back to home</a></p>
+        <p data-lang="zh"><a href="index.html">← 返回主页</a></p>
       </header>
-      <section>
-      <h3>About me</h3>
-      <p>When I am not at work, I enjoy reading books, particularly biographies of historical figures, as well as works on history, economics, sociology, and psychology. I also love watching movies. Both books and films allow me to experience more than I could in my everyday life. I'm passionate about traveling and hiking — the beauty of natural landscapes and the grandeur of high mountains always refresh my mind and soothe my soul. I value friendship greatly. I enjoy spending time with friends, having meaningful conversations, and doing things together. Their wisdom continually inspires me to become a better person.</p>
 
-      <p> I deeply love my partner. We are highly compatible and grow even closer as time goes by.</p>
+      <!-- About Me -->
+      <div class="section-card">
+        <h2 data-lang="en">About Me</h2>
+        <h2 data-lang="zh">关于我</h2>
+        <p data-lang="en">When I am not at work, I enjoy reading books, particularly biographies of historical figures, as well as works on history, economics, sociology, and psychology. I also love watching movies. Both books and films allow me to experience more than I could in my everyday life. I'm passionate about traveling and hiking — the beauty of natural landscapes and the grandeur of high mountains always refresh my mind and soothe my soul. I value friendship greatly. I enjoy spending time with friends, having meaningful conversations, and doing things together. Their wisdom continually inspires me to become a better person.</p>
+        <p data-lang="zh">工作之余，我热爱阅读，尤其喜欢历史人物传记，以及历史、经济、社会学和心理学方面的著作。我也很喜欢看电影。书籍和电影都让我得以体验日常生活中无法触及的更多可能性。我热衷于旅行和徒步——大自然的美丽风光和高山的壮阔总能让我神清气爽、心灵宁静。我非常珍视友情，喜欢与朋友相聚、深入交流、共同做事。他们的智慧不断激励着我成为更好的人。</p>
 
-      <p> I also dedicate time to practicing clerical script calligraphy and improving my English. I keep a daily journal and occasionally write blogs about technology.</p>
+        <p data-lang="en">I deeply love my partner. We are highly compatible and grow even closer as time goes by.</p>
+        <p data-lang="zh">我深爱我的伴侣。我们非常合拍，随着时间的推移，彼此的感情越发深厚。</p>
 
-      <p> In addition, I maintain a regular exercise routine, working out for three hours per week through activities like swimming and running.</p>
+        <p data-lang="en">I also dedicate time to practicing clerical script calligraphy and improving my English. I keep a daily journal and occasionally write blogs about technology.</p>
+        <p data-lang="zh">我也坚持练习隶书书法和提升英语水平。我每天写日记，偶尔也会撰写技术博客。</p>
 
-      
-      <hr />
-      <h3>Recent books I've read and highly recommend</h3>
+        <p data-lang="en">In addition, I maintain a regular exercise routine, working out for three hours per week through activities like swimming and running.</p>
+        <p data-lang="zh">此外，我保持规律的运动习惯，每周通过游泳和跑步等方式锻炼三小时。</p>
+      </div>
 
-      <p> Recently, I reading books about Zeng Guofan, a prominent statesman and military strategist of the late Qing Dynasty, founded the Xiang Army, a regional militia, as a civil official and suppressed the Taiping Rebellion, rising to the highest ranks of the imperial court. In his later years, he dedicated himself to the Westernization Movement and facilitated the Chinese Educational Mission, which sent young students to study in the United States. His family letters, preserved to this day, along with his philosophical reflections on life and continuous self-improvement, remain worthy of study.</p>
+      <!-- Recent Books -->
+      <div class="section-card">
+        <h2 data-lang="en">Recent Books I've Read and Highly Recommend</h2>
+        <h2 data-lang="zh">近期读过并强烈推荐的书籍</h2>
 
-      <p><b>History Figures And Related History</b></p>
-      <ul>
-        <li><em>Zeng Guofan's Family Letter</a></em>, by Zeng Guofan</li><button class="accordion"> Recommendation Reason </button>
-        <div class="panel" style="background-color: #F1F1F1; color: #666; padding: 10px;">After Zeng Guofan began his post in the Hanlin Academy in Beijing, he started corresponding with his parents and siblings in his hometown. </div>
+        <p data-lang="en">Recently, I have been reading books about Zeng Guofan, a prominent statesman and military strategist of the late Qing Dynasty. He founded the Xiang Army, a regional militia, as a civil official and suppressed the Taiping Rebellion, rising to the highest ranks of the imperial court. In his later years, he dedicated himself to the Westernization Movement and facilitated the Chinese Educational Mission, which sent young students to study in the United States. His family letters, preserved to this day, along with his philosophical reflections on life and continuous self-improvement, remain worthy of study.</p>
+        <p data-lang="zh">最近我在读关于曾国藩的书。他是晚清时期杰出的政治家和军事战略家，以文官之身创建了地方团练湘军，平定了太平天国运动，最终位极人臣。晚年的他致力于洋务运动，推动了中国留美幼童计划。他流传至今的家书以及关于人生的哲学思考和持续自我完善的精神，仍然值得今人学习。</p>
 
-        <li><em>Zeng Guofan</a></em>, by Tang Minghao</li><button class="accordion"> Recommendation Reason </button>
-        <div class="panel" style="background-color: #F1F1F1; color: #666; padding: 10px;">In my opinion, this is the most comprehensive and impartial biography of Zeng Guofan I've come across. The author has dedicated himself to studying Zeng since his PhD, making him a true authority on the subject. </div>
+        <p data-lang="en"><b>Historical Figures and Related History</b></p>
+        <p data-lang="zh"><b>历史人物及相关历史</b></p>
+        <ul>
+          <li>
+            <em data-lang="en">Zeng Guofan's Family Letters</em>
+            <em data-lang="zh">《曾国藩家书》</em>
+            <span data-lang="en">, by Zeng Guofan</span>
+            <span data-lang="zh">，曾国藩 著</span>
+          </li>
+          <button class="accordion" data-lang="en"> Recommendation Reason </button>
+          <button class="accordion" data-lang="zh"> 推荐理由 </button>
+          <div class="panel" style="background-color: #F1F1F1; color: #666; padding: 10px;">
+            <span data-lang="en">After Zeng Guofan began his post in the Hanlin Academy in Beijing, he started corresponding with his parents and siblings in his hometown.</span>
+            <span data-lang="zh">曾国藩在北京翰林院任职后，开始与家乡的父母和兄弟姐妹通信，这些家书记录了他的为人、为学、为官之道。</span>
+          </div>
 
-        <li><em>The Taiping Revolution Movement</a></em>, by Jen Yu-wen</li><button class="accordion"> Recommendation Reason </button>
-        <div class="panel" style="background-color: #F1F1F1; color: #666; padding: 10px;">This is one of the few books that details the entire history of the Taiping Rebellion, from start to finish. Reading it alongside a biography of Zeng Guofan pairs perfectly for grasping the bigger picture of late Qing society. </div>
+          <li>
+            <em data-lang="en">Zeng Guofan</em>
+            <em data-lang="zh">《曾国藩》</em>
+            <span data-lang="en">, by Tang Minghao</span>
+            <span data-lang="zh">，唐浩明 著</span>
+          </li>
+          <button class="accordion" data-lang="en"> Recommendation Reason </button>
+          <button class="accordion" data-lang="zh"> 推荐理由 </button>
+          <div class="panel" style="background-color: #F1F1F1; color: #666; padding: 10px;">
+            <span data-lang="en">In my opinion, this is the most comprehensive and impartial biography of Zeng Guofan I've come across. The author has dedicated himself to studying Zeng since his PhD, making him a true authority on the subject.</span>
+            <span data-lang="zh">在我看来，这是我读过的最全面、最客观的曾国藩传记。作者自博士阶段起便专注于曾国藩研究，是该领域真正的权威。</span>
+          </div>
 
-      </ul>
-      </section>
+          <li>
+            <em data-lang="en">The Taiping Revolution Movement</em>
+            <em data-lang="zh">《太平天国革命运动》</em>
+            <span data-lang="en">, by Jen Yu-wen</span>
+            <span data-lang="zh">，简又文 著</span>
+          </li>
+          <button class="accordion" data-lang="en"> Recommendation Reason </button>
+          <button class="accordion" data-lang="zh"> 推荐理由 </button>
+          <div class="panel" style="background-color: #F1F1F1; color: #666; padding: 10px;">
+            <span data-lang="en">This is one of the few books that details the entire history of the Taiping Rebellion, from start to finish. Reading it alongside a biography of Zeng Guofan pairs perfectly for grasping the bigger picture of late Qing society.</span>
+            <span data-lang="zh">这是为数不多完整详述太平天国运动始末的著作。与曾国藩传记一起阅读，可以更好地理解晚清社会的全貌。</span>
+          </div>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="section-card">
+        <h2 data-lang="en">Contact</h2>
+        <h2 data-lang="zh">联系方式</h2>
+        <div class="inline-links">
+          <a href="mailto:hushch2018@163.com"><i class="fas fa-fw fa-envelope"></i> Email</a>
+          <a href="https://orcid.org/0009-0003-9194-7979" target="_blank"><i class="ai ai-fw ai-orcid"></i> ORCID</a>
+          <a href="https://github.com/ShiCheHU" target="_blank"><i class="fab fa-fw fa-github"></i> GitHub</a>
+          <a href="https://linkedin.com/in/shicheng-hu" target="_blank"><i class="fab fa-fw fa-linkedin"></i> LinkedIn</a>
+        </div>
+        <p data-lang="en" style="margin-top: 12px;">Shanghai, China · Zhangjiang 201210</p>
+        <p data-lang="zh" style="margin-top: 12px;">中国上海 · 张江 201210</p>
+      </div>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
-    <!-- ============================ -->
-    <!-- 新增的JavaScript代码 - 修复按钮点击功能 -->
-    <!-- ============================ -->
+
+    <script src="javascripts/site.js"></script>
+    <script>siteLang.initLanguageToggle('en');</script>
+
     <script>
-    // 获取所有可折叠按钮
-    var acc = document.getElementsByClassName("accordion");
-    var i;
-    
-    // 为每个按钮添加点击事件
-    for (i = 0; i < acc.length; i++) {
-      acc[i].addEventListener("click", function() {
-        // 切换当前按钮的active类（改变图标）
-        this.classList.toggle("active");
-        
-        // 找到下一个兄弟元素（面板内容）
-        var panel = this.nextElementSibling;
-        
-        // 使用show类来切换显示状态
-        panel.classList.toggle("show");
-      });
-    }
+    (function() {
+      var acc = document.getElementsByClassName("accordion");
+      for (var i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var panel = this.nextElementSibling;
+          panel.classList.toggle("show");
+        });
+      }
+    })();
     </script>
-    <!-- ============================ -->
-    <!-- 新增代码结束 -->
-    <!-- ============================ -->
-    
   </body>
 </html>
