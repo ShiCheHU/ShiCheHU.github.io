@@ -55,7 +55,11 @@
     fetch(url)
       .then(function (res) {
         if (!res.ok) throw new Error('Not found: ' + url);
-        return res.text();
+        // Force UTF-8 decoding to prevent garbled Chinese on some servers
+        return res.arrayBuffer();
+      })
+      .then(function (buffer) {
+        return new TextDecoder('utf-8').decode(buffer);
       })
       .then(function (md) {
         container.innerHTML = marked.parse(md);
