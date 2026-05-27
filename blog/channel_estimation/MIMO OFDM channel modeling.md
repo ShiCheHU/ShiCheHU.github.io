@@ -14,6 +14,15 @@
 - [3 MIMO 信道建模方法](#3-mimo-信道建模方法)
   - [3.1 独立 Rayleigh/Rician tap 模型](#31-独立-rayleighrician-tap-模型)
   - [3.2 空间相关 Kronecker 模型](#32-空间相关-kronecker-模型)
+    - [3.2.1 Kronecker 模型的基本假设](#321-kronecker-模型的基本假设)
+    - [3.2.2 Kronecker 模型下的离散域 MIMO CIR](#322-kronecker-模型下的离散域-mimo-cir)
+    - [3.2.3 Kronecker 模型下的 MIMO CFR](#323-kronecker-模型下的-mimo-cfr)
+    - [3.2.4 空间相关矩阵的构造与推导](#324-空间相关矩阵的构造与推导)
+      - [3.2.4.1 从角度功率谱推导相关矩阵](#3241-从角度功率谱推导相关矩阵)
+      - [3.2.4.1b 角度扩展（Angular Spread）的生成](#3241b-角度扩展angular-spread的生成)
+      - [3.2.4.2 指数相关模型](#3242-指数相关模型)
+      - [3.2.4.3 利用阵列导向矢量构造相关矩阵](#3243-利用阵列导向矢量构造相关矩阵)
+    - [3.2.5 模型优缺点](#325-模型优缺点)
   - [3.3 角度域信道建模与稀疏表示](#33-角度域信道建模与稀疏表示)
     - [3.3.1 连续角度域——从阵列相位差到导向矢量](#331-连续角度域从阵列相位差到导向矢量)
     - [3.3.2 离散角度域——DFT 基向量与虚拟信道表示](#332-离散角度域dft-基向量与虚拟信道表示)
@@ -680,6 +689,130 @@ $$
 | 单点源（纯 LOS） | $p(\Omega) = \delta(\Omega - \Omega_0)$ | $e^{-j2\pi(p-q)\Omega_0}$（秩 1） |
 
 拉普拉斯分布在宏小区场景中与实测数据吻合较好；截断高斯分布在微小区中更为常见。3GPP TR 38.901 中，簇内射线的角度偏移通常建模为拉普拉斯分布或包裹高斯分布。
+
+#### 3.2.4.1b 角度扩展（Angular Spread）的生成
+
+角度功率谱 $p(\Omega)$ 中的参数 $\sigma_\Omega$ 即为**角度扩展**——它量化了散射能量在角度域上的分散程度，是 MIMO 信道建模中最核心的大尺度参数之一。
+
+**1) 角度扩展的严格定义**
+
+角度扩展（Angular Spread, AS）定义为角度功率谱的二阶中心矩的平方根（RMS angular spread）：
+
+$
+\boxed{
+\sigma_{\mathrm{AS}}
+\triangleq
+\sqrt{
+\frac{\int (\Omega - \bar\Omega)^2\, p(\Omega)\, d\Omega}
+{\int p(\Omega)\, d\Omega}
+},
+\qquad
+\bar\Omega \triangleq
+\frac{\int \Omega\, p(\Omega)\, d\Omega}
+{\int p(\Omega)\, d\Omega}
+}
+$
+
+其中 $\bar\Omega$ 是**平均角度**（mean angle），即角度域功率分布的一阶矩。以度为单位时，定义相同，只需将 $\Omega$ 换算为物理角度 $\theta$。
+
+**物理直觉**：
+
+- $\sigma_{\mathrm{AS}}$ 小 → 散射体集中在窄角度范围内 → 多根天线接收/发射的信号高度相关 → 信道矩阵趋于低秩 → 空间复用能力弱，但波束赋形增益高；
+- $\sigma_{\mathrm{AS}}$ 大 → 散射体分布广泛（丰富散射环境）→ 不同天线的信道趋于独立 → 信道矩阵趋于满秩 → 空间复用层数多。
+
+在常见角度分布下，$\sigma_\Omega$ 与 AS 的关系如下：
+
+| 角度分布 | $\sigma_{\mathrm{AS}}$ 与参数 $\sigma_\Omega$ 的关系 |
+|----------|-----------------------------------------------------|
+| 截断高斯 | AS ≈ $\sigma_\Omega$（当截断区间远大于 $\sigma_\Omega$ 时精确成立） |
+| 拉普拉斯 | AS = $\sigma_\Omega$（严格相等，$\sigma_\Omega$ 即为 RMS 角度扩展） |
+| 均匀分布（半宽 $\Omega_{\max}$） | AS = $\Omega_{\max}/\sqrt{3}$ |
+
+因此在实际仿真中，指定 AS 等价于指定 $p(\Omega)$ 的宽度参数。
+
+**2) 如何用平均角度和角度扩展生成单条路径的角度**
+
+在仿真中，对每条路径（或簇、射线）的角度取值可按如下流程生成：
+
+**Step 1：确定大尺度参数**
+- 选择场景（UMa/UMi/RMa/InH 等）和传播条件（LOS/NLOS）；
+- 查表或根据经验公式获得该场景下的平均角度 $\bar\Omega$（或 $\bar\theta$）和角度扩展 $\sigma_{\mathrm{AS}}$。
+
+**Step 2：选择角度分布类型**
+- 最常见选择：拉普拉斯分布（宏小区）或包裹高斯分布（微小区）；
+- 纯 LOS 场景可对 LOS 径取 $\sigma_{\mathrm{AS}} \to 0$，此时角度退化为确定性值 $\bar\Omega$。
+
+**Step 3：为每条路径/射线生成具体角度**
+
+假设选定拉普拉斯分布，第 $\ell$ 条路径（或簇中第 $q$ 条射线）的角度为：
+
+$
+\Omega_\ell = \bar\Omega + \Delta\Omega_\ell,
+$
+
+其中 $\Delta\Omega_\ell$ 是角度偏移量，按拉普拉斯分布生成：
+
+$
+p(\Delta\Omega) = \frac{1}{\sqrt{2}\,\sigma_{\mathrm{AS}}} \exp\!\left( -\frac{\sqrt{2}\,|\Delta\Omega|}{\sigma_{\mathrm{AS}}} \right).
+$
+
+若使用高斯分布：
+
+$
+p(\Delta\Omega) = \frac{1}{\sqrt{2\pi}\,\sigma_{\mathrm{AS}}} \exp\!\left( -\frac{(\Delta\Omega)^2}{2\sigma_{\mathrm{AS}}^2} \right),
+\qquad \text{需截断至合理角度范围}.
+$
+
+**Step 4：将归一化角度转换为物理角度**
+
+$\Omega = \frac{d}{\lambda}\sin\theta$ → $\theta = \arcsin\!\left(\frac{\lambda}{d}\,\Omega\right)$。对于 $d = \lambda/2$，$\theta = \arcsin(2\Omega)$。
+
+**完整生成示例**（发射端 Azimuth AoD，拉普拉斯分布）：
+
+$
+\begin{aligned}
+&\text{给定: } \bar\theta_{\mathrm{AoD}} = 30^\circ,\quad \sigma_{\mathrm{ASD}} = 5^\circ,\quad L = 3\ \text{条路径}. \\[4pt]
+&\text{step 1: } \bar\Omega_t = \frac{d}{\lambda}\sin\bar\theta_{\mathrm{AoD}} = 0.5 \times \sin 30^\circ = 0.25. \\[4pt]
+&\text{step 2: } \sigma_\Omega = \frac{d}{\lambda}\sin(\sigma_{\mathrm{ASD}}) \approx \frac{d}{\lambda}\,\sigma_{\mathrm{ASD}}\ \text{(小角度近似)}. \\[4pt]
+&\text{step 3: 对每条路径 }\ell,\ \Omega_{t,\ell} = \bar\Omega_t + \Delta\Omega_\ell,\quad \Delta\Omega_\ell \sim \mathrm{Laplace}(0, \sigma_\Omega/\sqrt{2}). \\[4pt]
+&\text{step 4: } \theta_{t,\ell} = \arcsin\!\left(\frac{\lambda}{d}\,\Omega_{t,\ell}\right).
+\end{aligned}
+$
+
+**3) 多径/多簇场景下 AS 的含义**
+
+在宽带 MIMO 信道中，不同时延簇通常具有不同的 AS。TR 38.901 定义了两级角度扩展：
+
+| 级别 | 参数 | 含义 |
+|------|------|------|
+| **簇级角度扩展** | $c_{\mathrm{ASD}}$, $c_{\mathrm{ASA}}$, $c_{\mathrm{ZSD}}$, $c_{\mathrm{ZSA}}$ | 簇内 20 条射线的角度分布宽度 |
+| **全局角度扩展** | ASD, ASA, ZSD, ZSA | 所有簇在全空间上的总体角度扩展（大尺度参数） |
+
+生成流程为：
+1. 先按场景获得**全局 AS**（如 UMa NLOS 的 ASD ≈ 22°）；
+2. 用全局 AS 缩放 CDL 表中的归一化簇级角度偏移 $c_{\mathrm{ASD}}$ 等；
+3. 每个簇内射线以簇中心角为均值、$c_{\mathrm{ASD}} \cdot \mathrm{ASD}_{\text{desired}}$ 为扩展量生成具体角度。
+
+**4) 典型场景的角度扩展参考值**
+
+以下数值来自 3GPP TR 38.901（UMa 场景，方位角 AS，单位：度）：
+
+| 场景 | LOS/NLOS | ASD | ASA | ZSD | ZSA |
+|------|----------|-----|-----|-----|-----|
+| UMa | LOS | $\lg \mathrm{ASD} \sim \mathcal{N}(1.06, 0.28)$ | $\lg \mathrm{ASA} \sim \mathcal{N}(1.60, 0.18)$ | $\lg \mathrm{ZSD} \sim \mathcal{N}(0.64, 0.32)$ | $\lg \mathrm{ZSA} \sim \mathcal{N}(0.90, 0.23)$ |
+| UMa | NLOS | $\lg \mathrm{ASD} \sim \mathcal{N}(1.46, 0.28)$ | $\lg \mathrm{ASA} \sim \mathcal{N}(1.79, 0.20)$ | $\lg \mathrm{ZSD} \sim \mathcal{N}(0.81, 0.23)$ | $\lg \mathrm{ZSA} \sim \mathcal{N}(0.96, 0.17)$ |
+
+注：此处 AS 值服从对数正态分布，仿真时先抽样 $\lg\mathrm{AS}$ 再取 $10^{\lg\mathrm{AS}}$。表中给出的是 $\lg\mathrm{AS}$ 的均值 $\mu$ 和标准差 $\sigma$。例如 UMa NLOS 的 ASD 对数均值为 1.46，即几何平均 ASD ≈ $10^{1.46} \approx 28.8°$（该值因具体参数集而有波动，与 CDL 表中的角度扩展区间一致）。
+
+**5) 小结**
+
+| 问题 | 答案 |
+|------|------|
+| AS 的物理含义 | 角度域散射能量的 RMS 宽度 |
+| 如何参数化 $p(\Omega)$ | 指定分布类型 + 平均角度 $\bar\Omega$ + 角度扩展 $\sigma_{\mathrm{AS}}$ |
+| 如何为单条路径赋角度 | $\Omega_\ell = \bar\Omega + \Delta\Omega$，$\Delta\Omega$ 按指定分布随机生成 |
+| AS 与空间相关的联系 | $[\mathbf R]_{p,q} = \int e^{-j2\pi(p-q)\Omega}p(\Omega)d\Omega$，AS 决定 $p(\Omega)$ 宽度 → 决定相关矩阵衰减速度 |
+| AS 与信道秩的关系 | AS 越大 → 相关越弱 → 信道秩越高 |
 
 #### 3.2.4.2 指数相关模型
 

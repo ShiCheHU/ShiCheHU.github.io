@@ -14,6 +14,15 @@
 - [3 MIMO Channel Modeling Methods](#3-mimo-channel-modeling-methods)
   - [3.1 Independent Rayleigh/Rician Tap Model](#31-independent-rayleighrician-tap-model)
   - [3.2 Spatially Correlated Kronecker Model](#32-spatially-correlated-kronecker-model)
+    - [3.2.1 Basic Assumptions of the Kronecker Model](#321-basic-assumptions-of-the-kronecker-model)
+    - [3.2.2 Discrete-Domain MIMO CIR Under the Kronecker Model](#322-discrete-domain-mimo-cir-under-the-kronecker-model)
+    - [3.2.3 MIMO CFR Under the Kronecker Model](#323-mimo-cfr-under-the-kronecker-model)
+    - [3.2.4 Construction and Derivation of Spatial Correlation Matrices](#324-construction-and-derivation-of-spatial-correlation-matrices)
+      - [3.2.4.1 Deriving Correlation Matrices from the Angular Power Spectrum](#3241-deriving-correlation-matrices-from-the-angular-power-spectrum)
+      - [3.2.4.1b Angular Spread — Definition and Generation](#3241b-angular-spread--definition-and-generation)
+      - [3.2.4.2 Exponential Correlation Model](#3242-exponential-correlation-model)
+      - [3.2.4.3 Constructing Correlation Matrices Using Array Steering Vectors](#3243-constructing-correlation-matrices-using-array-steering-vectors)
+    - [3.2.5 Model Pros and Cons](#325-model-pros-and-cons)
   - [3.3 Angular-Domain Channel Modeling and Sparse Representation](#33-angular-domain-channel-modeling-and-sparse-representation)
     - [3.3.1 Continuous Angular Domain — From Array Phase Differences to Steering Vectors](#331-continuous-angular-domain--from-array-phase-differences-to-steering-vectors)
     - [3.3.2 Discrete Angular Domain — DFT Basis Vectors and Virtual Channel Representation](#332-discrete-angular-domain--dft-basis-vectors-and-virtual-channel-representation)
@@ -680,6 +689,130 @@ $$
 | Single point source (pure LOS) | $p(\Omega) = \delta(\Omega - \Omega_0)$ | $e^{-j2\pi(p-q)\Omega_0}$ (rank 1) |
 
 The Laplace distribution agrees well with measurements in macrocell scenarios; truncated Gaussian is more common in microcells. In 3GPP TR 38.901, the angular offsets of rays within a cluster are typically modeled as Laplace or wrapped Gaussian distributions.
+
+#### 3.2.4.1b Angular Spread — Definition and Generation
+
+The parameter $\sigma_\Omega$ in the angular power spectrum $p(\Omega)$ is precisely the **Angular Spread** (AS) — it quantifies the degree of dispersion of scattering energy in the angular domain and is one of the most fundamental large-scale parameters in MIMO channel modeling.
+
+**1) Rigorous definition of angular spread**
+
+The Angular Spread is defined as the square root of the second central moment (RMS angular spread) of the angular power spectrum:
+
+$
+\boxed{
+\sigma_{\mathrm{AS}}
+\triangleq
+\sqrt{
+\frac{\int (\Omega - \bar\Omega)^2\, p(\Omega)\, d\Omega}
+{\int p(\Omega)\, d\Omega}
+},
+\qquad
+\bar\Omega \triangleq
+\frac{\int \Omega\, p(\Omega)\, d\Omega}
+{\int p(\Omega)\, d\Omega}
+}
+$
+
+where $\bar\Omega$ is the **mean angle**, i.e., the first moment of the angular power distribution. The definition is identical in degrees after converting $\Omega$ to the physical angle $\theta$.
+
+**Physical intuition**:
+
+- Small $\sigma_{\mathrm{AS}}$ → scatterers are concentrated within a narrow angular range → signals received/transmitted by multiple antennas are highly correlated → the channel matrix tends toward low rank → weak spatial multiplexing capability but high beamforming gain;
+- Large $\sigma_{\mathrm{AS}}$ → scatterers are widely distributed (rich scattering environment) → channels across different antennas tend toward independence → the channel matrix tends toward full rank → many spatial multiplexing layers.
+
+Under common angular distributions, the relationship between $\sigma_\Omega$ and AS is:
+
+| Angular Distribution | Relationship between $\sigma_{\mathrm{AS}}$ and parameter $\sigma_\Omega$ |
+|----------------------|---------------------------------------------------------------------------|
+| Truncated Gaussian | AS ≈ $\sigma_\Omega$ (exact when the truncation interval is much larger than $\sigma_\Omega$) |
+| Laplace | AS = $\sigma_\Omega$ (exact equality — $\sigma_\Omega$ is the RMS angular spread) |
+| Uniform (half-width $\Omega_{\max}$) | AS = $\Omega_{\max}/\sqrt{3}$ |
+
+Thus in practice, specifying AS is equivalent to specifying the width parameter of $p(\Omega)$.
+
+**2) How to generate per-path angles from mean angle and angular spread**
+
+In simulation, the angle for each path (or cluster, or ray) is generated according to the following workflow:
+
+**Step 1: Determine large-scale parameters**
+- Select the scenario (UMa/UMi/RMa/InH, etc.) and propagation condition (LOS/NLOS);
+- Look up or derive from empirical formulas the mean angle $\bar\Omega$ (or $\bar\theta$) and angular spread $\sigma_{\mathrm{AS}}$ for that scenario.
+
+**Step 2: Choose an angular distribution**
+- Most common choices: Laplace (macrocells) or wrapped Gaussian (microcells);
+- For pure-LOS scenarios, the LOS path may take $\sigma_{\mathrm{AS}} \to 0$, reducing the angle to the deterministic value $\bar\Omega$.
+
+**Step 3: Generate a specific angle for each path/ray**
+
+Assuming a Laplace distribution, the angle of the $\ell$-th path (or the $q$-th ray within a cluster) is:
+
+$
+\Omega_\ell = \bar\Omega + \Delta\Omega_\ell,
+$
+
+where $\Delta\Omega_\ell$ is the angular offset drawn from the Laplace distribution:
+
+$
+p(\Delta\Omega) = \frac{1}{\sqrt{2}\,\sigma_{\mathrm{AS}}} \exp\!\left( -\frac{\sqrt{2}\,|\Delta\Omega|}{\sigma_{\mathrm{AS}}} \right).
+$
+
+If a Gaussian distribution is used instead:
+
+$
+p(\Delta\Omega) = \frac{1}{\sqrt{2\pi}\,\sigma_{\mathrm{AS}}} \exp\!\left( -\frac{(\Delta\Omega)^2}{2\sigma_{\mathrm{AS}}^2} \right),
+\qquad \text{truncated to a reasonable angular range}.
+$
+
+**Step 4: Convert normalized angle to physical angle**
+
+$\Omega = \frac{d}{\lambda}\sin\theta$ → $\theta = \arcsin\!\left(\frac{\lambda}{d}\,\Omega\right)$. For $d = \lambda/2$, $\theta = \arcsin(2\Omega)$.
+
+**Complete generation example** (transmit Azimuth AoD, Laplace distribution):
+
+$
+\begin{aligned}
+&\text{Given: } \bar\theta_{\mathrm{AoD}} = 30^\circ,\quad \sigma_{\mathrm{ASD}} = 5^\circ,\quad L = 3\ \text{paths}. \\[4pt]
+&\text{step 1: } \bar\Omega_t = \frac{d}{\lambda}\sin\bar\theta_{\mathrm{AoD}} = 0.5 \times \sin 30^\circ = 0.25. \\[4pt]
+&\text{step 2: } \sigma_\Omega = \frac{d}{\lambda}\sin(\sigma_{\mathrm{ASD}}) \approx \frac{d}{\lambda}\,\sigma_{\mathrm{ASD}}\ \text{(small-angle approximation)}. \\[4pt]
+&\text{step 3: for each path }\ell,\ \Omega_{t,\ell} = \bar\Omega_t + \Delta\Omega_\ell,\quad \Delta\Omega_\ell \sim \mathrm{Laplace}(0, \sigma_\Omega/\sqrt{2}). \\[4pt]
+&\text{step 4: } \theta_{t,\ell} = \arcsin\!\left(\frac{\lambda}{d}\,\Omega_{t,\ell}\right).
+\end{aligned}
+$
+
+**3) Meaning of AS in multipath/multi-cluster scenarios**
+
+In wideband MIMO channels, different delay clusters typically exhibit different AS values. TR 38.901 defines two levels of angular spread:
+
+| Level | Parameter | Meaning |
+|-------|-----------|---------|
+| **Per-cluster angular spread** | $c_{\mathrm{ASD}}$, $c_{\mathrm{ASA}}$, $c_{\mathrm{ZSD}}$, $c_{\mathrm{ZSA}}$ | The angular distribution width of the 20 rays within a cluster |
+| **Global angular spread** | ASD, ASA, ZSD, ZSA | The overall angular spread of all clusters in full space (large-scale parameter) |
+
+The generation workflow is:
+1. Obtain the **global AS** according to the scenario (e.g., ASD ≈ 22° for UMa NLOS);
+2. Scale the normalized per-cluster angular offsets $c_{\mathrm{ASD}}$, etc., from the CDL tables using the global AS;
+3. For each cluster, generate ray-specific angles using the cluster center angle as the mean and $c_{\mathrm{ASD}} \cdot \mathrm{ASD}_{\text{desired}}$ as the spread.
+
+**4) Reference angular spread values for typical scenarios**
+
+The following values are from 3GPP TR 38.901 (UMa scenario, azimuth AS, in degrees):
+
+| Scenario | LOS/NLOS | ASD | ASA | ZSD | ZSA |
+|----------|----------|-----|-----|-----|-----|
+| UMa | LOS | $\lg \mathrm{ASD} \sim \mathcal{N}(1.06, 0.28)$ | $\lg \mathrm{ASA} \sim \mathcal{N}(1.60, 0.18)$ | $\lg \mathrm{ZSD} \sim \mathcal{N}(0.64, 0.32)$ | $\lg \mathrm{ZSA} \sim \mathcal{N}(0.90, 0.23)$ |
+| UMa | NLOS | $\lg \mathrm{ASD} \sim \mathcal{N}(1.46, 0.28)$ | $\lg \mathrm{ASA} \sim \mathcal{N}(1.79, 0.20)$ | $\lg \mathrm{ZSD} \sim \mathcal{N}(0.81, 0.23)$ | $\lg \mathrm{ZSA} \sim \mathcal{N}(0.96, 0.17)$ |
+
+Note: AS values here follow a log-normal distribution; during simulation one first samples $\lg\mathrm{AS}$ and then takes $10^{\lg\mathrm{AS}}$. The table gives the mean $\mu$ and standard deviation $\sigma$ of $\lg\mathrm{AS}$. For example, the log-mean ASD of UMa NLOS is 1.46, i.e., geometric mean ASD ≈ $10^{1.46} \approx 28.8°$ (this value fluctuates depending on the specific parameter set, consistent with the AS ranges in the CDL tables).
+
+**5) Summary**
+
+| Question | Answer |
+|----------|--------|
+| Physical meaning of AS | RMS width of the scattering energy in the angular domain |
+| How to parameterize $p(\Omega)$ | Specify distribution type + mean angle $\bar\Omega$ + angular spread $\sigma_{\mathrm{AS}}$ |
+| How to assign an angle to a single path | $\Omega_\ell = \bar\Omega + \Delta\Omega$, where $\Delta\Omega$ is drawn randomly from the chosen distribution |
+| Link between AS and spatial correlation | $[\mathbf R]_{p,q} = \int e^{-j2\pi(p-q)\Omega}p(\Omega)d\Omega$; AS determines the width of $p(\Omega)$ → determines the decay rate of the correlation matrix |
+| Link between AS and channel rank | Larger AS → weaker correlation → higher channel rank |
 
 #### 3.2.4.2 Exponential Correlation Model
 
