@@ -62,7 +62,30 @@
         return new TextDecoder('utf-8').decode(buffer);
       })
       .then(function (md) {
-        container.innerHTML = marked.parse(md);
+        /* ---------- Protect LaTeX math from Markdown parser ---------- */
+        var mathBlocks = [];
+        // 1. Protect $$...$$ (display math) — must be done before single $
+        md = md.replace(/\$\$([\s\S]*?)\$\$/g, function (match, body) {
+          mathBlocks.push({ type: 'display', body: body });
+          return '\u0000MATH' + (mathBlocks.length - 1) + '\u0000';
+        });
+        // 2. Protect $...$ (inline math) — single-line only to avoid false matches
+        md = md.replace(/\$([^$\n]+?)\$/g, function (match, body) {
+          mathBlocks.push({ type: 'inline', body: body });
+          return '\u0000MATH' + (mathBlocks.length - 1) + '\u0000';
+        });
+
+        var html = marked.parse(md);
+
+        // 3. Restore math blocks as KaTeX-compatible delimiters
+        html = html.replace(/\u0000MATH(\d+)\u0000/g, function (match, idx) {
+          var block = mathBlocks[parseInt(idx, 10)];
+          return block.type === 'display'
+            ? '$$' + block.body + '$$'
+            : '$' + block.body + '$';
+        });
+
+        container.innerHTML = html;
         document.title = (container.querySelector('h1') || {}).textContent || 'Blog';
         // KaTeX rendering
         if (typeof renderMathInElement === 'function') {
