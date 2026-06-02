@@ -2,56 +2,56 @@
 
 ## 目录
 
-- [1 1概述](#1-1概述)
+- [1 概述](#1-概述)
 
-- [2 2 系统模型](#2-2-系统模型)
-  - [2.1 2.1 信道模型](#21-21-信道模型)
+- [2 系统模型](#2-系统模型)
+  - [2.1 信道模型](#21-信道模型)
     - [2.1.1 离散域表示](#211-离散域表示)
 
-  - [2.2 2.2 接收信号模型](#22-22-接收信号模型)
+  - [2.2 接收信号模型](#22-接收信号模型)
 
-- [3 3 信道估计与插值](#3-3-信道估计与插值)
-  - [3.1 3.1 导频位置上的信道估计](#31-31-导频位置上的信道估计)
-    - [3.1.1 3.1.1 Least Squares (LS)](#311-311-Least-Squares-LS)
+- [3 信道估计与插值](#3-信道估计与插值)
+  - [3.1 导频位置上的信道估计](#31-导频位置上的信道估计)
+    - [3.1.1 Least Squares (LS)](#311-Least-Squares-LS)
 
-    - [3.1.2 3.1.2 Minimum Mean Square Error (MMSE)](#312-312-Minimum-Mean-Square-Error-MMSE)
+    - [3.1.2 Minimum Mean Square Error (MMSE)](#312-Minimum-Mean-Square-Error-MMSE)
 
-    - [3.1.3 3.1.3 Linear MMSE (LMMSE)](#313-313-Linear-MMSE-LMMSE)
+    - [3.1.3 Linear MMSE (LMMSE)](#313-Linear-MMSE-LMMSE)
 
-  - [3.2 3.2 插值](#32-32-插值)
-    - [3.2.1 3.2.1 线性插值](#321-321-线性插值)
+  - [3.2 插值](#32-插值)
+    - [3.2.1 线性插值](#321-线性插值)
       - [3.2.1.1 一维线性插值](#3211-一维线性插值)
 
       - [3.2.1.2 二维线性插值](#3212-二维线性插值)
 
-    - [3.2.2 3.2.2 二阶插值](#322-322-二阶插值)
+    - [3.2.2 二阶插值](#322-二阶插值)
       - [3.2.2.1 一维二阶插值](#3221-一维二阶插值)
 
       - [3.2.2.2 二维二阶插值](#3222-二维二阶插值)
 
-    - [3.2.3 3.2.3 Wiener (LMMSE) 插值](#323-323-Wiener-LMMSE-插值)
+    - [3.2.3 Wiener (LMMSE) 插值](#323-Wiener-LMMSE-插值)
       - [3.2.3.1 一维插值](#3231-一维插值)
 
       - [3.2.3.2 导频估计噪声的影响](#3232-导频估计噪声的影响)
 
       - [3.2.3.3 二维插值](#3233-二维插值)
 
-    - [3.2.4 3.2.4 DFT 插值](#324-324-DFT-插值)
-      - [3.2.4.1 3.2.4.1 一维频域 DFT 插值](#3241-3241-一维频域-DFT-插值)
+    - [3.2.4 DFT 插值](#324-DFT-插值)
+      - [3.2.4.1 一维频域 DFT 插值](#3241-一维频域-DFT-插值)
         - [3.2.4.1.1 Step 1：由导频 CFR 恢复低维 CIR](#32411-Step-1由导频-CFR-恢复低维-CIR)
 
         - [3.2.4.1.2 Step 2：时域截断 / 去噪](#32412-Step-2时域截断--去噪)
 
         - [3.2.4.1.3 Step 3：零填充并恢复全部子载波的 CFR](#32413-Step-3零填充并恢复全部子载波的-CFR)
 
-      - [3.2.4.2 3.2.4.2 二维 DFT 插值](#3242-3242-二维-DFT-插值)
+      - [3.2.4.2 二维 DFT 插值](#3242-二维-DFT-插值)
 
-    - [3.2.5 3.2.5 DFT 插值的成立条件](#325-325-DFT-插值的成立条件)
+    - [3.2.5 DFT 插值的成立条件](#325-DFT-插值的成立条件)
 
-- [4 4 References](#4-4-References)
+- [4 References](#4-References)
 
 
-# 1 1概述
+# 1 概述
 
 信道估计与信道模型、导频图样和接收机复杂度密切相关。通常需要根据：
 
@@ -73,9 +73,9 @@
 
 对于多符号场景，通常还需要利用时间相关性进行二维插值，甚至进一步做信道跟踪或预测。本文仅讨论**导频辅助的信道估计与插值**。
 
-# 2 2 系统模型
+# 2 系统模型
 
-## 2.1 2.1 信道模型
+## 2.1 信道模型
 
 考虑单输入单输出（SISO）OFDM 系统。记：
 
@@ -125,7 +125,7 @@ $$
 
 其逆变换为 **IDFT**：$h[m,n]=\frac{1}{N}\sum _{k=0}^{N-1} H[m,k] e^{j\frac{2\pi}{N}kn},\qquad n=0,1,\dots,N-1.$
 
-## 2.2 2.2 接收信号模型
+## 2.2 接收信号模型
 
 设第 $m$ 个 OFDM 符号在频域上的发送符号为：$X_m[k],\qquad k=0,1,\dots,N-1,$ 其中 $X_m[k]\in \mathcal Q$，$\mathcal Q$ 为调制星座集合，如 QPSK、16-QAM、64-QAM 等。
 
@@ -180,7 +180,7 @@ $$
 
 这里 $N_p$ 为所考虑时频区域内的导频总数，$N_d$ 为数据位置总数。
 
-# 3 3 信道估计与插值
+# 3 信道估计与插值
 
 信道恢复通常分为两部分：
 
@@ -200,9 +200,9 @@ $$
 - Wiener (LMMSE) 插值
 - DFT 插值
 
-## 3.1 3.1 导频位置上的信道估计
+## 3.1 导频位置上的信道估计
 
-### 3.1.1 3.1.1 Least Squares (LS)
+### 3.1.1 Least Squares (LS)
 
 在导频位置上，LS 估计通过最小化残差平方和得到：
 $\hat{\mathbf H}_p =  \arg\min _{\mathbf H_p\in\mathbb C^{N_p\times 1}}
@@ -244,7 +244,7 @@ $$
 
 ***
 
-### 3.1.2 3.1.2 Minimum Mean Square Error (MMSE)
+### 3.1.2 Minimum Mean Square Error (MMSE)
 
 MMSE 估计试图最小化导频位置上的均方误差。设估计器为线性形式：
 
@@ -256,11 +256,11 @@ $$
 其中 $\mathbf Q_p\in\mathbb C^{N_p\times N_p}$，优化目标为：
 
 $$
-\mathbf Q_p^\star =  \arg\min {\mathbf Q_p}
+\mathbf Q_p^\star =  \arg\min _{\mathbf Q_p}
 \mathbb E\left\{
-\left|
+\left\|
 \mathbf H_p-\mathbf Q_p\mathbf Y_p
-\right| 2^2
+\right\|_2^2
 \right\}.
 $$
 
@@ -316,15 +316,39 @@ MMSE 估计利用了二阶统计信息，因此性能通常优于 LS，但需要
 估计误差：
 
 $$
-\begin{align}
-\epsilon &= \mathrm{E}\left\{ \lVert \hat{\mathbf{H}}_p - \mathbf{H}_p \rVert^2_F \right\} \\
-& = \sigma^2 Tr(R_h \left(\operatorname{diag}(\mathbf{X}_p)^H \operatorname{diag}(\mathbf{X}_p) R_h + \sigma^2 \mathbf{I}_{N_p} \right)^{-1})
-\end{align} 
+\begin{aligned}
+\epsilon
+&= \mathbb E\left\{ \lVert \hat{\mathbf H}_p-\mathbf H_p\rVert_2^2 \right\} \\
+&= \operatorname{Tr}\left(
+\mathbf R_{H_p}
+-\mathbf R_{H_p}\operatorname{diag}(\mathbf X_p)^H
+\left(
+\operatorname{diag}(\mathbf X_p)\mathbf R_{H_p}\operatorname{diag}(\mathbf X_p)^H
++\sigma^2\mathbf I_{N_p}
+\right)^{-1}
+\operatorname{diag}(\mathbf X_p)\mathbf R_{H_p}
+\right).
+\end{aligned} 
+$$
+
+若 $\mathbf R_{H_p}$ 非奇异，上式也可用矩阵求逆引理写成：
+
+$$
+\boxed{
+\epsilon
+=\operatorname{Tr}\left[
+\sigma^2\mathbf R_{H_p}
+\left(
+\operatorname{diag}(\mathbf X_p)^H\operatorname{diag}(\mathbf X_p)\mathbf R_{H_p}
++\sigma^2\mathbf I_{N_p}
+\right)^{-1}
+\right]
+}
 $$
 
 ***
 
-### 3.1.3 3.1.3 Linear MMSE (LMMSE)
+### 3.1.3 Linear MMSE (LMMSE)
 
 在 OFDM 文献中，LMMSE 一般指在**线性估计器**类中求最优 MMSE 解。对于当前模型，上式本身已经是 LMMSE 解。
 
@@ -350,7 +374,7 @@ $$
 
 这就是常见的 LMMSE 信道估计表达式。
 
-## 3.2 3.2 插值
+## 3.2 插值
 
 插值用于根据导频位置上的信道估计恢复数据位置上的信道。
 对于单个 OFDM 符号，通常只需要**频域插值**；对于多个符号上的散布导频，还需要**时间-频率二维插值**。
@@ -367,7 +391,7 @@ $$
 
 ***
 
-### 3.2.1 3.2.1 线性插值
+### 3.2.1 线性插值
 
 #### 3.2.1.1 一维线性插值
 
@@ -421,7 +445,7 @@ $$
 
 ***
 
-### 3.2.2 3.2.2 二阶插值
+### 3.2.2 二阶插值
 
 #### 3.2.2.1 一维二阶插值
 
@@ -507,7 +531,7 @@ $$
 
 ***
 
-### 3.2.3 3.2.3 Wiener (LMMSE) 插值
+### 3.2.3 Wiener (LMMSE) 插值
 
 #### 3.2.3.1 一维插值
 
@@ -515,7 +539,7 @@ $$
 
 
 $$
-\hat{\mathbf H}d=\mathbf A\hat{\mathbf H} p,
+\hat{\mathbf H}_d=\mathbf A\hat{\mathbf H}_p,
 \qquad
 \mathbf A\in\mathbb C^{N_d\times N_p}.
 $$
@@ -525,9 +549,9 @@ $$
 $$
 \mathbf A^\star = \arg\min _{\mathbf A}
 \mathbb E\left[
-\left|
-\mathbf H_d-\mathbf A\hat{\mathbf H}p
-\right| 2^2
+\left\|
+\mathbf H_d-\mathbf A\hat{\mathbf H}_p
+\right\|_2^2
 \right].
 $$
 
@@ -535,7 +559,7 @@ $$
 
 
 $$
-\mathbf A = \mathbf R_{\hat p\hat p}  \mathbf R_{d\hat p},
+\mathbf A^\star = \mathbf R_{d\hat p}\mathbf R_{\hat p\hat p}^{-1},
 $$
 
 其中
@@ -549,7 +573,7 @@ $$
 
 $$
 \boxed{
-\mathbf A^\star=\mathbf R {d\hat p}\mathbf R{\hat p\hat p}^{-1}
+\mathbf A^\star=\mathbf R_{d\hat p}\mathbf R_{\hat p\hat p}^{-1}
 }
 $$
 
@@ -619,7 +643,7 @@ $$
 
 ***
 
-### 3.2.4 3.2.4 DFT 插值
+### 3.2.4 DFT 插值
 
 DFT 插值基于一个关键先验：
 
@@ -627,7 +651,7 @@ DFT 插值基于一个关键先验：
 
 若导频频域采样足够密，则可以先由导频位置上的频域响应恢复 CIR，再由恢复的 CIR 重建全部子载波上的 CFR。
 
-#### 3.2.4.1 3.2.4.1 一维频域 DFT 插值
+#### 3.2.4.1 一维频域 DFT 插值
 
 考虑单个 OFDM 符号(省略符号索引m)、梳状导频。设导频间隔为 $S_f$，导频数为$N_p = \frac{N}{S_f}$（为简洁起见，假设可整除）。
 
@@ -691,7 +715,7 @@ $$
 
 ***
 
-#### 3.2.4.2 3.2.4.2 二维 DFT 插值
+#### 3.2.4.2 二维 DFT 插值
 
 对于多个 OFDM 符号上的导频，最常见的二维 DFT 插值并不是直接在整个时频平面上做二维 DFT，而是采用**分离式处理**：
 
@@ -710,7 +734,7 @@ $$
 
 ***
 
-### 3.2.5 3.2.5 DFT 插值的成立条件
+### 3.2.5 DFT 插值的成立条件
 
 DFT 插值成立的关键条件是：
 
@@ -730,7 +754,7 @@ $$
 
 因为若有效 CIR 超过 $N_p$，则对 $N_p$ 点 IDFT 得到的时域响应会发生混叠，无法唯一恢复原始 CIR。此时 DFT 插值性能会明显下降。
 
-# 4 4 References
+# 4 References
 
 1. [https://pmc.ncbi.nlm.nih.gov/articles/PMC8309705/](https://pmc.ncbi.nlm.nih.gov/articles/PMC8309705/ "https://pmc.ncbi.nlm.nih.gov/articles/PMC8309705/")
 2. LS / MMSE 推导参考： [https://www.cnblogs.com/hjd21/p/16634313.html](https://www.cnblogs.com/hjd21/p/16634313.html "https://www.cnblogs.com/hjd21/p/16634313.html")

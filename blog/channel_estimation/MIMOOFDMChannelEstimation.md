@@ -490,6 +490,77 @@ $$
 }
 $$
 
+**LS 估计误差下界**
+
+由
+
+$$
+\hat{\mathbf H}_{\mathrm{LS},b}[k_p]-\mathbf H_b[k_p]
+=
+\mathbf W_b[k_p]\mathbf X_b[k_p]^H
+\left(\mathbf X_b[k_p]\mathbf X_b[k_p]^H\right)^{-1}
+$$
+
+可得 LS 误差均方值：
+
+$$
+\begin{aligned}
+\epsilon_{\mathrm{LS}}[k_p]
+&\triangleq
+\mathbb E\left\{
+\left\|
+\hat{\mathbf H}_{\mathrm{LS},b}[k_p]-\mathbf H_b[k_p]
+\right\|_F^2
+\right\} \\
+&=
+\sigma_w^2 N_r
+\operatorname{Tr}\left[
+\left(\mathbf X_b[k_p]\mathbf X_b[k_p]^H\right)^{-1}
+\right].
+\end{aligned}
+$$
+
+若该导频子载波上的总训练能量为
+
+$$
+E_{\mathrm{tr}}[k_p]
+\triangleq
+\operatorname{Tr}\left(\mathbf X_b[k_p]\mathbf X_b[k_p]^H\right),
+$$
+
+则由
+$\operatorname{Tr}(\mathbf C^{-1})\ge \dfrac{N_t^2}{\operatorname{Tr}(\mathbf C)}$
+可得 LS 误差下界：
+
+$$
+\boxed{
+\epsilon_{\mathrm{LS}}[k_p]
+\ge
+\sigma_w^2 N_r
+\frac{N_t^2}{E_{\mathrm{tr}}[k_p]}
+}
+$$
+
+当 $\mathbf X_b[k_p]\mathbf X_b[k_p]^H=\dfrac{E_{\mathrm{tr}}[k_p]}{N_t}\mathbf I_{N_t}$ 时取等号，即各发射端口导频正交且能量均匀分配。若记每个发射端口的导频能量为 $E_p$，即 $\mathbf X_b[k_p]\mathbf X_b[k_p]^H=E_p\mathbf I_{N_t}$，则：
+
+$$
+\boxed{
+\epsilon_{\mathrm{LS}}[k_p]
+=
+\sigma_w^2\frac{N_rN_t}{E_p}
+}
+$$
+
+对应的单个 MIMO 信道系数平均 MSE 为：
+
+$$
+\boxed{
+\frac{\epsilon_{\mathrm{LS}}[k_p]}{N_rN_t}
+=
+\frac{\sigma_w^2}{E_p}.
+}
+$$
+
 这一步的估计对象是导频子载波上的 CFR，而不是物理路径数，也不是必然直接估计 CIR。它只完成“导频位置初估计”。宽带结构的利用属于后续重构/插值步骤：可以把这些导频 CFR 初估计送入第 3 章的 IDFT/DFT 有限时延重构、Wiener/LMMSE 时频空预测或 OMP 角度-时延重构。
 
 因此，ZF/LS 本身不需要假定物理路径数。若后续使用 IDFT/DFT 有限时延重构，需要假定的是最大有效离散时延长度 $L_h$，不是物理路径数；物理路径数或稀疏度假设主要出现在 OMP 一类稀疏估计算法中。
@@ -759,6 +830,68 @@ $$
 \mathbf A\mathbf R_h
 }
 $$
+
+因此 LMMSE 的信道估计 MSE 为误差协方差的迹：
+
+$$
+\boxed{
+\epsilon_{\mathrm{LMMSE}}
+=
+\mathbb E\left\{
+\left\|
+\hat{\mathbf h}_{\mathrm{LMMSE}}-\mathbf h
+\right\|_2^2
+\right\}
+=
+\operatorname{Tr}(\mathbf R_e)
+}
+$$
+
+也就是：
+
+$$
+\boxed{
+\epsilon_{\mathrm{LMMSE}}
+=
+\operatorname{Tr}\left[
+\mathbf R_h
+-\mathbf R_h\mathbf A^H
+(\mathbf A\mathbf R_h\mathbf A^H+\mathbf R_w)^{-1}
+\mathbf A\mathbf R_h
+\right].
+}
+$$
+
+若 $\mathbf R_h$ 与 $\mathbf R_w$ 非奇异，上式可由矩阵求逆引理写成更紧凑的形式：
+
+$$
+\boxed{
+\epsilon_{\mathrm{LMMSE}}
+=
+\operatorname{Tr}\left[
+\left(
+\mathbf R_h^{-1}
++\mathbf A^H\mathbf R_w^{-1}\mathbf A
+\right)^{-1}
+\right].
+}
+$$
+
+这里的 $\epsilon_{\mathrm{LMMSE}}$ 是所有线性估计器可达到的最小 MSE，因此任意线性估计器 $\hat{\mathbf h}=\mathbf B\mathbf y$ 都满足：
+
+$$
+\boxed{
+\mathbb E\left\{
+\left\|
+\hat{\mathbf h}-\mathbf h
+\right\|_2^2
+\right\}
+\ge
+\epsilon_{\mathrm{LMMSE}}.
+}
+$$
+
+若进一步假设 $\mathbf h$ 和 $\mathbf w$ 均为复高斯随机向量，则 LMMSE 与 MMSE 相同，该式也是当前高斯先验和线性观测模型下的 MMSE 下界，并由上面的 LMMSE 估计器达到。
 
 得到 $\hat{\mathbf h}_{\mathrm{LMMSE}}$ 后，同样先恢复 $\hat{\mathbf H}_b[n]$，再沿离散时延维度做 DFT 生成 $\hat{\mathbf H}_b[k]$。
 
