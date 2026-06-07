@@ -41,12 +41,14 @@
     var file = params.get('file');
 
     var url;
+    var fallbackUrl = null;
     if (post) {
       // Standard blog: blog/posts/{lang}/{post}.md
       url = 'blog/posts/' + lang + '/' + post + '.md';
     } else if (file) {
       // Tech note: append .en.md for English
       url = lang === 'en' ? file.replace(/\.md$/, '.en.md') : file;
+      fallbackUrl = lang === 'en' ? file : null;
     } else {
       container.innerHTML = '<p style="color:var(--c-muted)">No post specified.</p>';
       return;
@@ -54,7 +56,12 @@
 
     fetch(url)
       .then(function (res) {
+        if (!res.ok && fallbackUrl) return fetch(fallbackUrl);
         if (!res.ok) throw new Error('Not found: ' + url);
+        return res;
+      })
+      .then(function (res) {
+        if (!res.ok) throw new Error('Not found: ' + (fallbackUrl || url));
         // Force UTF-8 decoding to prevent garbled Chinese on some servers
         return res.arrayBuffer();
       })
