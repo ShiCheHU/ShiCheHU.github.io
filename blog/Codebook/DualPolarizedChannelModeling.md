@@ -21,6 +21,7 @@
   - [5.2 空间-极化联合相关矩阵](#52-空间-极化联合相关矩阵)
   - [5.3 XPR/XPD 与极化耦合](#53-xprxpd-与极化耦合)
   - [5.4 双极化 Kronecker TDL/CFR 生成](#54-双极化-kronecker-tdlcfr-生成)
+  - [5.5 Kronecker 模型典型场景参数设置](#55-kronecker-模型典型场景参数设置)
 - [6 角度-时延域双极化几何模型](#6-角度-时延域双极化几何模型)
   - [6.1 普通角度-时延域 MIMO 模型](#61-普通角度-时延域-mimo-模型)
   - [6.2 路径级 2x2 极化耦合矩阵](#62-路径级-2x2-极化耦合矩阵)
@@ -693,6 +694,314 @@ $$
 
 这种模型的优点是实现简单、参数少、便于分析信道估计和 BER/NMSE。缺点是物理解释较弱，尤其不能准确描述每条路径的 AoD-AoA-极化联合耦合。
 
+## 5.5 Kronecker 模型典型场景参数设置
+
+Kronecker TDL 模型不显式生成每条路径的 AoA/AoD，而是用 tap 功率、空间相关矩阵、极化相关矩阵和 XPR 共同描述统计信道。因此它的典型参数设置应围绕以下对象：
+
+$$
+\{P_n,\tau_n\},\quad
+\mathbf R_{t,\mathrm{space}},\mathbf R_{r,\mathrm{space}},\quad
+\mathbf R_{t,\mathrm{pol}},\mathbf R_{r,\mathrm{pol}},\quad
+\kappa_n,\quad
+f_D.
+$$
+
+### 典型场景参数表
+
+下面给出适合链路级算法验证的 Kronecker TDL 参数起点。
+
+| 场景 | tap 数 $L_h$ | RMS 时延扩展 | 空间结构 | 极化相关 $\lvert \rho_{\mathrm{pol}}\rvert$ | XPR [dB] | 速度 |
+|---|---|---|---|---|---|---|
+| 平坦/弱频选 | 1-2 | 0-30 ns | 低：0-0.3 | 0-0.3 | 10-20 | 0-30 km/h |
+| 普通室外链路 | 4-8 | 50-300 ns | 中：0.3-0.7 | 0.3-0.7 | 6-12 | 3-120 km/h |
+| 高相关大阵列 | 4-8 | 50-300 ns | 高：0.7-0.9 | 0.5-0.9 | 6-15 | 3-60 km/h |
+| 强极化混合 | 4-12 | 100-500 ns | 中：0.3-0.7 | 0.3-0.7 | 0-6 | 3-120 km/h |
+| 接近理想双极化隔离 | 4-8 | 50-300 ns | 中：0.3-0.7 | 0-0.3 | 15-30 | 0-60 km/h |
+
+这里的“空间相关”可理解为指数相关模型中的相邻阵元相关系数；“极化相关”表示同一位置两个极化端口之间的统计相关强度；XPR 控制交叉极化泄漏功率。
+
+### tap 功率 $P_n$
+
+一种常用 TDL PDP 是指数衰减：
+
+$$
+\tilde{P}_n
+=
+e^{-nT_s/\tau_{\mathrm{rms}}},
+\qquad n=0,\dots,L_h-1,
+$$
+
+然后归一化：
+
+$$
+P_n
+=
+\frac{\tilde{P}_n}{\sum_{q=0}^{L_h-1}\tilde{P}_q}.
+$$
+
+如果只想隔离空间-极化影响，也可以使用等功率 tap：
+
+$$
+P_n=\frac{1}{L_h}.
+$$
+
+指数 PDP 更适合宽带频率选择性仿真；等功率 PDP 更适合做参数敏感性分析。
+
+### tap 时延 $\tau_n$
+
+Kronecker TDL 不需要显式路径角度，但仍需要 tap 时延。最简单的均匀 tap 间隔为：
+
+$$
+\tau_n=nT_s,\qquad n=0,\dots,L_h-1,
+$$
+
+其中 $T_s$ 是采样周期或等效时延分辨率。
+
+如果希望 RMS 时延扩展更可控，可以先生成候选 tap 时延：
+
+$$
+\tau_n\sim\mathcal U(0,\tau_{\max}),
+$$
+
+然后排序并配合指数 PDP 使用。通常可取：
+
+$$
+\tau_{\max}\approx 3\tau_{\mathrm{rms}}\sim 5\tau_{\mathrm{rms}}.
+$$
+
+链路级 OFDM 仿真中也常直接把 tap 索引 $n$ 视为离散时延，此时 $P_n$ 控制不同 tap 的平均功率，DFT 关系决定 CFR 的频率选择性。
+
+### 空间结构：相关矩阵
+
+链路级仿真中常用指数相关模型：
+
+$$
+\left[\mathbf R_{\mathrm{space}}\right]_{i,j}
+=
+\rho_{\mathrm{space}}^{|i-j|}.
+$$
+
+其中 $\rho_{\mathrm{space}}$ 可以取：
+
+| $\rho_{\mathrm{space}}$ | 含义 |
+|---:|---|
+| 0 | 空间独立 |
+| 0.3 | 弱空间相关 |
+| 0.5 | 中等空间相关 |
+| 0.7 | 强空间相关 |
+| 0.9 | 极强空间相关 |
+
+对于 UPA，可以分别对水平和垂直两个维度构造相关矩阵：
+
+$$
+\mathbf R_{\mathrm{space}}
+=
+\mathbf R_{\mathrm{v}}\otimes\mathbf R_{\mathrm{h}}.
+$$
+
+如果只模拟 ULA，则直接使用一维 $\mathbf R_{\mathrm{space}}$ 即可。
+
+### 极化结构：相关矩阵
+
+双极化端口的极化相关矩阵可写为：
+
+$$
+\mathbf R_{\mathrm{pol}}
+=
+\begin{bmatrix}
+1 & \rho_{\mathrm{pol}}\\
+\rho_{\mathrm{pol}}^* & 1
+\end{bmatrix}.
+$$
+
+典型扫描值：
+
+| $\lvert \rho_{\mathrm{pol}}\rvert$ | 含义 |
+|---:|---|
+| 0 | 两个极化端口统计不相关 |
+| 0.3 | 弱相关 |
+| 0.5 | 中等相关 |
+| 0.7 | 强相关 |
+| 0.9 | 很强相关 |
+
+若没有测量数据，$\rho_{\mathrm{pol}}$ 通常可以先取实数非负值。若要引入相位，可设：
+
+$$
+\rho_{\mathrm{pol}}
+=
+|\rho_{\mathrm{pol}}|e^{j\psi_{\mathrm{pol}}},
+\qquad
+\psi_{\mathrm{pol}}\sim\mathcal U(-\pi,\pi).
+$$
+
+### XPR 与极化耦合结构
+
+若采用 $V/H$ 极化优先排列，可以先生成四个未相关极化子块：
+
+$$
+\tilde{\mathbf W}_{VV},\tilde{\mathbf W}_{VH},
+\tilde{\mathbf W}_{HV},\tilde{\mathbf W}_{HH}
+\sim
+\mathcal{CN}(0,1).
+$$
+
+给定第 $n$ 个 tap 的 XPR：
+
+$$
+\kappa_n=10^{\mathrm{XPR}_{n,\mathrm{dB}}/10},
+$$
+
+则可构造：
+
+$$
+\boxed{
+\mathbf W_{\mathrm{pol}}[m,n]
+=
+\begin{bmatrix}
+\tilde{\mathbf W}_{VV}[m,n] &
+\frac{1}{\sqrt{\kappa_n}}\tilde{\mathbf W}_{VH}[m,n]\\
+\frac{1}{\sqrt{\kappa_n}}\tilde{\mathbf W}_{HV}[m,n] &
+\tilde{\mathbf W}_{HH}[m,n]
+\end{bmatrix}
+}
+$$
+
+对应关系为：
+
+| XPR [dB] | 交叉极化幅度 $1/\sqrt{\kappa}$ | 交叉极化功率 $1/\kappa$ | 耦合强度 |
+|---:|---:|---:|---|
+| 0 | 1.000 | 100% | 极强 |
+| 3 | 0.707 | 50% | 强 |
+| 6 | 0.501 | 25% | 中等偏强 |
+| 10 | 0.316 | 10% | 中等 |
+| 15 | 0.178 | 3.2% | 较弱 |
+| 20 | 0.100 | 1% | 很弱 |
+| 30 | 0.032 | 0.1% | 接近理想隔离 |
+
+如果想让不同 tap 的极化混合不同，可以令：
+
+$$
+\mathrm{XPR}_{n,\mathrm{dB}}
+\sim
+\mathcal N(\mu_{\mathrm{XPR}},\sigma_{\mathrm{XPR}}^2).
+$$
+
+算法验证时常用：
+
+$$
+\mu_{\mathrm{XPR}}\in\{3,6,10,15,20\}\ \mathrm{dB},
+\qquad
+\sigma_{\mathrm{XPR}}\in[0,5]\ \mathrm{dB}.
+$$
+
+### 相位和时间变化
+
+如果使用复高斯 $\tilde{\mathbf W}$，每个矩阵元素已经自带随机相位，不需要额外设置 $\phi$。如果使用显式 $2\times2$ tap 级极化耦合矩阵：
+
+$$
+\mathbf P_n[m]
+=
+\beta_n[m]
+\begin{bmatrix}
+e^{j\phi_{n,VV}} &
+\sqrt{\kappa_n^{-1}}e^{j\phi_{n,VH}}\\
+\sqrt{\kappa_n^{-1}}e^{j\phi_{n,HV}} &
+e^{j\phi_{n,HH}}
+\end{bmatrix},
+$$
+
+则通常取：
+
+$$
+\phi_{n,p_rp_t}
+\sim
+\mathcal U(-\pi,\pi).
+$$
+
+如果需要时间选择性，可把公共多普勒相位放进：
+
+$$
+\beta_n[m]
+=
+e^{j(2\pi f_{D,n}mT_{\mathrm{sym}}+\varphi_n)}.
+$$
+
+最大多普勒可由速度和载频给出：
+
+$$
+f_{D,\max}
+=
+\frac{v f_c}{c}.
+$$
+
+若不区分每个 tap 的入射方向，可以令：
+
+$$
+f_{D,n}
+\sim
+\mathcal U(-f_{D,\max},f_{D,\max}),
+$$
+
+或直接用同一个 $f_D$ 做时间相关性压力测试。
+
+### 端口和阵列约束
+
+如果端口按位置优先排列：
+
+$$
+\left[(0,V),(0,H),(1,V),(1,H),\dots\right],
+$$
+
+联合相关矩阵应写为：
+
+$$
+\mathbf R
+=
+\mathbf R_{\mathrm{space}}\otimes\mathbf R_{\mathrm{pol}}.
+$$
+
+如果端口按极化优先排列：
+
+$$
+\left[(0,V),(1,V),\dots,(0,H),(1,H),\dots\right],
+$$
+
+联合相关矩阵应写为：
+
+$$
+\mathbf R
+=
+\mathbf R_{\mathrm{pol}}\otimes\mathbf R_{\mathrm{space}}.
+$$
+
+实际代码中要保证 $\mathbf W_{\mathrm{pol}}$ 的行列排列和 $\mathbf R_t,\mathbf R_r$ 的 Kronecker 积顺序一致。
+
+### 推荐的起始仿真配置
+
+如果没有标准场景约束，可以先使用如下 Kronecker TDL baseline：
+
+| 参数 | 建议值 |
+|---|---|
+| tap 数 $L_h$ | 6 或 8 |
+| RMS 时延扩展 | 100 ns |
+| Tx 空间相关 $\rho_{t,\mathrm{space}}$ | 0.5 |
+| Rx 空间相关 $\rho_{r,\mathrm{space}}$ | 0.3 |
+| 极化相关 $\lvert \rho_{\mathrm{pol}}\rvert$ | 0.3 或 0.5 |
+| XPR | 10 dB |
+| 速度 | 30 km/h |
+| 端口排列 | 位置优先或极化优先，但全链路保持一致 |
+| PDP | 指数衰减并归一化 |
+
+建议扫描：
+
+- XPR：$0,3,6,10,15,20$ dB；
+- 空间相关：$0,0.3,0.5,0.7,0.9$；
+- 极化相关：$0,0.3,0.5,0.7,0.9$；
+- RMS 时延扩展：$30,100,300,500$ ns；
+- tap 数：$1,2,4,8,12$。
+
+这样可以分别观察频率选择性、空间相关、极化相关、交叉极化泄漏和时间选择性对信道估计、预编码、信道秩和 BER/NMSE 的影响。
+
 # 6 角度-时延域双极化几何模型
 
 ## 6.1 普通角度-时延域 MIMO 模型
@@ -873,11 +1182,21 @@ $$
 
 角度-时延域双极化几何模型的参数比 Kronecker 模型更多。为了便于链路级仿真，可以先使用少量典型场景参数，再逐步对路径数、角度扩展、时延扩展、XPR 和移动速度做扫描。
 
+几何模型的典型参数设置应围绕以下对象：
+
+$$
+\{P_\ell,\tau_\ell\},\quad
+\Omega_{t,\ell},\Omega_{r,\ell},\quad
+\mathbf A_t(\Omega_{t,\ell}),\mathbf A_r(\Omega_{r,\ell}),\quad
+\mathbf P_\ell[m],\quad
+f_{D,\ell}.
+$$
+
 ### 典型场景参数表
 
 下面给出一组适合算法验证的经验取值。它们不是替代 3GPP TR 38.901 的标准表格，而是用于自建仿真时的初始参数。
 
-| 场景 | 路径数 $L$ | RMS 时延扩展 | AoD/AoA 角度扩展 | XPR [dB] | 速度 | 适用目标 |
+| 场景 | 路径数 $L$ | RMS 时延扩展 | 空间结构 | XPR [dB] | 速度 | 适用目标 |
 |---|---:|---:|---:|---:|---:|---|
 | LOS/开阔低散射 | 1-3 | 10-50 ns | 2-5 deg | 10-20 | 0-30 km/h | 验证波束对准、近似低秩信道 |
 | 郊区/弱散射 NLOS | 4-8 | 50-200 ns | 5-15 deg | 7-15 | 3-60 km/h | 普通链路级 BER/NMSE |
@@ -949,7 +1268,7 @@ $$
 
 指数抽样更容易产生少数强早到路径和较弱晚到路径。
 
-### AoA/AoD 角度
+### 空间结构：AoA/AoD 角度
 
 可先为每个链路生成一个中心角：
 
@@ -989,7 +1308,7 @@ $$
 
 角度扩展越小，信道越接近低秩和强方向性；角度扩展越大，空间维度更丰富，但阵列相关和波束泄漏也更复杂。
 
-### XPR 与极化耦合矩阵
+### XPR 与极化耦合结构
 
 几何模型中通常为每条路径设置一个 XPR：
 
@@ -1045,7 +1364,7 @@ $$
 \mathcal U(-\pi,\pi).
 $$
 
-### 多普勒和时间变化
+### 相位和时间变化
 
 若考虑移动性，最大多普勒为：
 
@@ -1080,7 +1399,7 @@ $$
 | 30-120 km/h | 城区车辆 |
 | 120-350 km/h | 高速铁路或高速移动 |
 
-### 阵列和方向图响应
+### 端口和阵列约束
 
 如果只做基础算法验证，可以使用理想阵列响应：
 
@@ -1123,6 +1442,7 @@ $$
 | XPR | 10 dB |
 | 极化相位 | 独立 $\mathcal U(-\pi,\pi)$ |
 | 速度 | 30 km/h |
+| 端口排列 | 与 $\mathbf A_t,\mathbf A_r,\mathbf P_\ell$ 的极化基保持一致 |
 | 阵列响应 | 理想 UPA/ULA + 双极化端口 |
 | 路径功率 | 指数 PDP 并归一化 |
 
