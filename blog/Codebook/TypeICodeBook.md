@@ -35,7 +35,7 @@ NR 下行 MIMO-OFDM 预编码的核心问题是：gNB 如何根据 UE 侧看到�
 
 ## 1.1 MIMO-OFDM 预编码模型
 
-NR Type I 码本的预编码矩阵定义在 CSI-RS antenna ports 维度上。也就是说，码本矩阵的行数对应 CSI-RS antenna ports 数，而不是直接对应基站实现中的每一个物理天线单元。设用于码本反馈的 CSI-RS 端口数为：
+NR Type I 码本的预编码矩阵定义在 CSI-RS antenna ports （或者叫物理天线端口）维度上。也就是说，码本矩阵的行数对应 CSI-RS antenna ports 数，而不是直接对应基站实现中的每一个物理天线单元。设用于码本反馈的 CSI-RS 端口数为：
 
 $$
 P_{\mathrm{CSI-RS}}=N_{\mathrm{AP}}.
@@ -47,6 +47,7 @@ $$
 \mathbf H_{\mathrm{CSI}}[m,k]\in\mathbb C^{N_r\times P_{\mathrm{CSI-RS}}}.
 $$
 
+其中，$N_r$ 为终端侧接收物理天线端口数。
 若 PDSCH 传输 $\nu$ 层数据，层符号为 $\mathbf s[m,k]\in\mathbb C^{\nu\times1}$，Type I 码本生成的预编码矩阵为：
 
 $$
@@ -86,7 +87,7 @@ $$
 \mathbb C^{NN_r\times NP_{\mathrm{CSI-RS}}}.
 $$
 
-因此，本文后续的 $\mathbf H_{\mathrm{CSI}}[m,k]$ 始终指某个资源粒子上从 CSI-RS antenna ports 到 UE 接收天线的 MIMO 信道矩阵；宽带和子带预编码是在多个 $k$ 上共同选择一个或一组码本矩阵。
+因此，本文后续的 $\mathbf H_{\mathrm{CSI}}[m,k]$ 始终指某个资源粒子在物理天线端口上看到的 MIMO 信道矩阵；宽带和子带预编码是在多个 $k$ 上共同选择一个或一组码本矩阵。
 
 ## 1.2 为什么需要码本反馈
 
